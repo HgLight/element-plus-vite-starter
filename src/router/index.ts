@@ -1,7 +1,9 @@
 import {createRouter,Router} from 'vue-router'
+import type { RouteComponent, RouteLocationNormalized } from "vue-router";
 
 import Home from '../views/Home.vue'
 import {getHistoryMode} from "./utils";
+import NProgress from "../utils/progress";
 
 const routes = [
   {
@@ -29,5 +31,14 @@ const router:Router = createRouter({
         });
       }
 })
+
+router.beforeEach(async (to: RouteLocationNormalized, _from, next) => {
+  NProgress.start();
+  next();
+});
+
+router.afterEach(() => {
+  NProgress.done();
+});
 
 export default router
