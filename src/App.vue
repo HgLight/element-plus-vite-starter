@@ -1,6 +1,6 @@
 <template>
   <el-config-provider namespace="ep">
-    <BaseHeader />
+    <BaseHeader :now="now"/>
     <div class="flex main-container">
       <!-- <BaseSide /> -->
       <div w="full" py="4">
@@ -12,6 +12,29 @@
   </el-config-provider>
 </template>
 
+<script lang="ts">
+import { defineComponent } from "vue";
+import { getTime } from "./api/home";
+
+export default defineComponent({
+  name: "App",
+  data() {
+    return {
+      now: "",
+    };
+  },
+  mounted(){
+    this.getServeTime();
+  },
+  methods:{
+     // 获取服务器时间
+     async getServeTime() {
+      const res = await getTime({});
+      this.now = res;
+    },
+  }
+})
+</script>
 <style>
 #app {
   text-align: center;
