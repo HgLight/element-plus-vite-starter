@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
+import { setupStore } from "./store";
 
 // import "~/styles/element/index.scss";
 
@@ -18,5 +19,6 @@ import "element-plus/theme-chalk/src/message.scss";
 
 const app = createApp(App);
 // app.use(ElementPlus);
+setupStore(app);
 app.use(router);
 app.mount("#app");

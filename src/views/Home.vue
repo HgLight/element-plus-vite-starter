@@ -1,21 +1,15 @@
-<template>
-  <div>
-    首页
-  </div>
-</template>
+<script setup lang='ts'>
+import { storeToRefs } from "pinia";
+import {  useAppStoreHook} from "../store/modules/app";
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  setup (props, context) {
-    return {
-      
-    }
-  },
+defineOptions({
+  name: 'HomePage'
 })
+
+const {homeName,homeEName}=storeToRefs(useAppStoreHook())
 </script>
 
-<style scoped>
-
-</style>
+<template>
+  <div>中文名：{{homeName}}</div>
+  <div>英文名：{{homeEName}}</div>
+</template>
