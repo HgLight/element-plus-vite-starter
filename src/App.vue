@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { getTime } from "./api/home";
+import { getTime } from "~/api";
 
 export default defineComponent({
   name: "App",
@@ -45,3 +45,4 @@ export default defineComponent({
   height: calc(100vh - var(--ep-menu-item-height) - 3px);
 }
 </style>
+./api
