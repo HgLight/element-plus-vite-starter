@@ -6,7 +6,7 @@ import { ref } from "vue";
 
 const requesting=ref<boolean>(false) 
 const dialogVisible=ref<boolean>(false) 
-const QRcodeVal=ref<string>('MY240221008') // HL23070303 SC23063003 MY23070401 MY23070403 MY23070404 MY23070601 SC23071106
+const QRcodeVal=ref<string>('') // HL23070303 SC23063003 MY23070401 MY23070403 MY23070404 MY23070601 SC23071106 MY240221008
 
 defineOptions({
   name: 'ScanDialog'
