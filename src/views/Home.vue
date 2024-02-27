@@ -132,8 +132,8 @@ onMounted(() => {
   }
 });
 
-const str=location.search.split("?");
-if(str.length>0){
+const str = location.search.split("?");
+if (str.length > 0) {
   const search = queryString.parse(str[1]) as unknown as any;
   workOrderCode.value = search.workOrderCode;
   QRcodeVal.value = workOrderCode.value ? workOrderCode.value : "";

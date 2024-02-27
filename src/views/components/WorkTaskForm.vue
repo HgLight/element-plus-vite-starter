@@ -758,9 +758,7 @@ onMounted(() => {
               "
             >
               <template v-if="false" #suffix>
-                <span>
-                  总量：{{ formData.quantityFeedback }}
-                </span>
+                <span> 总量：{{ formData.quantityFeedback }} </span>
               </template>
               <template #append>
                 <el-button
