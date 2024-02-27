@@ -8,7 +8,8 @@
     "build": "vite build",
     "generate": "vite-ssg build",
     "preview": "vite preview",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "lint:prettier": "prettier --write  \"src/**/*.{js,ts,json,tsx,css,scss,vue,html,md}\""
   },
   "dependencies": {
     "@microsoft/signalr": "^8.0.0",
@@ -27,6 +28,7 @@
     "@types/node": "^20.11.20",
     "@types/qs": "^6.9.11",
     "@vitejs/plugin-vue": "^5.0.4",
+    "prettier": "3.2.5",
     "sass": "^1.71.1",
     "typescript": "^5.3.3",
     "unocss": "^0.58.5",
