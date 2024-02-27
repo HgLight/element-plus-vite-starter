@@ -54,7 +54,7 @@ function handleBeforehand() {
           <i inline-flex i="ep-medal" />
           当前工序
         </template>
-        <el-tag v-if="erweimaData.curProcessName" size="small">
+        <el-tag v-if="erweimaData.curProcessName">
           {{ erweimaData.curProcessName }}
         </el-tag>
       </el-descriptions-item>
@@ -70,8 +70,8 @@ function handleBeforehand() {
           <i inline-flex i="ep-chat-line-square" />
           Bom明细数据
         </template>
-        <el-popover placement="bottom" width="440" trigger="click">
-          <el-table :data="bomTableData" border size="small">
+        <el-popover placement="bottom" width="540" trigger="click">
+          <el-table :data="bomTableData" border>
             <el-table-column
               property="materialCode"
               label="物料编码"
@@ -89,7 +89,7 @@ function handleBeforehand() {
             />
           </el-table>
           <template #reference>
-            <el-button type="primary" size="small"> 查看明细 </el-button>
+            <el-button type="primary"> 查看明细 </el-button>
           </template>
         </el-popover>
       </el-descriptions-item>

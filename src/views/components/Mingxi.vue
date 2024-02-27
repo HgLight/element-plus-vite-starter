@@ -380,14 +380,12 @@ if (currentWorkTask.value?.isAddDefect === true) {
                           ? '已结束，不可开始。'
                           : ''
                   "
-                  size="small"
                   type="success"
                   @click="handleStart(workTask)"
                 >
                   开始
                 </el-button>
                 <el-button
-                  size="small"
                   type="danger"
                   :disabled="!workTask.canFinish"
                   :title="
@@ -408,7 +406,6 @@ if (currentWorkTask.value?.isAddDefect === true) {
                     erweimaData.isAntecede &&
                     workTask.processName.indexOf('先行') != -1
                   "
-                  size="small"
                   type="primary"
                   :loading="exporting"
                   :disabled="workTask.status != 4"
@@ -443,7 +440,6 @@ if (currentWorkTask.value?.isAddDefect === true) {
                       <el-button
                         v-if="workTask.status == 2 || workTask.status == 3"
                         type="primary"
-                        size="small"
                         style="margin-left: 20px"
                         :disabled="
                           erweimaData.taskStatus == 3 ||
@@ -472,7 +468,6 @@ if (currentWorkTask.value?.isAddDefect === true) {
                     style="width: 100%"
                     height="260"
                     border
-                    size="small"
                   >
                     <el-table-column
                       label="序号"
@@ -508,7 +503,6 @@ if (currentWorkTask.value?.isAddDefect === true) {
                         <label>操作</label>
                         <!-- <el-button
                           type="primary"
-                          size="small"
                           style="margin-left: 20px"
                           :disabled="workTask.status==1||workTask.status==4"
                           :title="workTask.status==1?'未开始，不可添加':workTask.status==4?'已结束，不可开始':''"
@@ -519,7 +513,6 @@ if (currentWorkTask.value?.isAddDefect === true) {
                       </template>
                       <template #defalut="{ row }">
                         <el-button
-                          size="small"
                           type="danger"
                           @click="handleDelete(row, workTask)"
                         >
