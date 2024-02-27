@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import { storeToRefs } from "pinia";
-import queryString from "query-string";
+import queryString from "qs";
 import { ElMessage } from "element-plus";
 
 import Mingxi from "./components/Mingxi.vue";
@@ -20,7 +20,7 @@ const { workOrderCode, erweimaData, workTaskFeedbacks, currentWorkTask } =
 
 const scanDialogRef = ref();
 const dialogVisible = ref(false);
-const QRcodeVal = ref<string | (string | null)[] | null>("");
+const QRcodeVal = ref<string>("");
 
 function handleComplete(val: any) {
   workOrderCode.value = val;
@@ -132,10 +132,13 @@ onMounted(() => {
   }
 });
 
-const search = queryString.parse(location.search);
-workOrderCode.value = search.workOrderCode;
-QRcodeVal.value = workOrderCode.value ? workOrderCode.value : "";
-console.log("QRcodeVal", QRcodeVal.value);
+const str=location.search.split("?");
+if(str.length>0){
+  const search = queryString.parse(str[1]) as unknown as any;
+  workOrderCode.value = search.workOrderCode;
+  QRcodeVal.value = workOrderCode.value ? workOrderCode.value : "";
+  console.log("QRcodeVal", QRcodeVal.value);
+}
 </script>
 
 <template>
