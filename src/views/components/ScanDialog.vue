@@ -35,6 +35,10 @@ function handleChange() {
   }
   requesting.value = true;
 }
+
+if (import.meta.env.MODE == "development") {
+  QRcodeVal.value = "SC240223001";
+}
 </script>
 
 <template>
