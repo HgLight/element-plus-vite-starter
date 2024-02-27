@@ -12,27 +12,27 @@
   "dependencies": {
     "@microsoft/signalr": "^8.0.0",
     "axios": "^1.6.7",
-    "element-plus": "^2.3.12",
+    "element-plus": "^2.5.6",
     "js-md5": "^0.8.3",
     "nprogress": "^0.2.0",
     "pinia": "^2.1.7",
     "qs": "^6.11.2",
     "query-string": "^8.2.0",
-    "vue": "^3.3.4",
+    "vue": "^3.4.20",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "@iconify-json/ep": "^1.1.12",
-    "@types/node": "^20.6.0",
+    "@iconify-json/ep": "^1.1.14",
+    "@types/node": "^20.11.20",
     "@types/qs": "^6.9.11",
     "@vitejs/plugin-vue": "^4.3.4",
-    "sass": "^1.66.1",
-    "typescript": "^5.2.2",
+    "sass": "^1.71.1",
+    "typescript": "^5.3.3",
     "unocss": "^0.55.7",
     "unplugin-vue-components": "^0.25.2",
     "vite": "^4.4.9",
     "vite-ssg": "^0.23.1",
-    "vue-tsc": "^1.8.11"
+    "vue-tsc": "^1.8.27"
   },
   "license": "MIT"
 }
