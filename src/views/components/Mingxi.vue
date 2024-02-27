@@ -404,7 +404,7 @@ if (currentWorkTask.value?.isAddDefect === true) {
                 <el-button
                   v-if="
                     erweimaData.isAntecede &&
-                    workTask.processName.indexOf('先行') != -1
+                    (workTask.processName.indexOf('先行') != -1||workTask.processName.indexOf('首件') != -1)
                   "
                   type="primary"
                   :loading="exporting"
