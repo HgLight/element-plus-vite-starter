@@ -758,7 +758,7 @@ onMounted(() => {
               "
             >
               <template v-if="false" #suffix>
-                <span style="line-height: 40px">
+                <span>
                   总量：{{ formData.quantityFeedback }}
                 </span>
               </template>

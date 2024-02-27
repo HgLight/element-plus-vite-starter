@@ -40,3 +40,7 @@ $--colors: (
 
 // custom dark variables
 @use "./dark.scss";
+
+.ep-input-number {
+  width: 100%;
+}

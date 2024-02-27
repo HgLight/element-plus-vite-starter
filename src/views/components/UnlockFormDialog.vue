@@ -257,7 +257,7 @@ function handleClose() {
           <el-form-item label="浮动百分比" prop="deviation">
             <el-input v-model="deviation" disabled>
               <template #suffix>
-                <span style="line-height: 40px"> % </span>
+                <span> % </span>
               </template>
             </el-input>
           </el-form-item>
