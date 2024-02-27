@@ -112,7 +112,6 @@ onMounted(() => {
     border
     :span-method="objectSpanMethod"
     style="width: 100%"
-    empty-text="暂无数据"
   >
     <el-table-column v-if="false" type="selection" width="55" align="center" />
     <el-table-column
