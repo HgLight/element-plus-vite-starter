@@ -685,7 +685,6 @@ onMounted(() => {
           <el-form-item label="操作人" prop="userId">
             <el-select
               v-model="formData.userId"
-              class="m-2"
               placeholder="请选择"
               filterable
               :allow-create="false"
