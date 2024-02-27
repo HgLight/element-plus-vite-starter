@@ -342,8 +342,8 @@ function resetForm(this: any) {
               type="date"
               :disabled="showType == 'read'"
               placeholder="请选择"
-              format="yyyy-MM-dd HH:mm:ss"
-              value-format="yyyy-MM-dd HH:mm:ss"
+              format="YYYY-MM-DD HH:mm:ss"
+              value-format="YYYY-MM-DD HH:mm:ss"
               style="width: 100%"
               :clearable="false"
               :editable="false"
@@ -491,14 +491,14 @@ function resetForm(this: any) {
                     v-if="row.isNew || row.isEdit"
                     v-model="row.expireDate"
                     type="date"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd"
+                    format="YYYY-MM-DD"
+                    value-format="YYYY-MM-DD"
                     style="width: 160px"
                     placeholder="有效期"
                   />
                   <span v-else>{{
                     row.expireDate != ""
-                      ? dayjs(row.expireDate).format("yyyy-MM-dd")
+                      ? dayjs(row.expireDate).format("YYYY-MM-dd")
                       : ""
                   }}</span>
                 </template>
