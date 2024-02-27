@@ -1,5 +1,5 @@
 <template>
-  <el-config-provider namespace="ep">
+  <el-config-provider namespace="ep" :locale="currentLocale">
     <BaseHeader :now="now" />
     <div class="flex main-container">
       <!-- <BaseSide /> -->
@@ -14,6 +14,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import en from "element-plus/dist/locale/en.mjs";
+import zhCn from "element-plus/dist/locale/zh-cn.mjs";
+
 import { getTime } from "~/api";
 
 export default defineComponent({
@@ -21,7 +24,13 @@ export default defineComponent({
   data() {
     return {
       now: "",
+      language: "zh-cn",
     };
+  },
+  computed: {
+    currentLocale() {
+      return this.language === "zh-cn" ? zhCn : en;
+    },
   },
   mounted() {
     this.getServeTime();
