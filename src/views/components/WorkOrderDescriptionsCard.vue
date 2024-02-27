@@ -1,30 +1,23 @@
-
-
-<script setup lang='ts'>
+<script setup lang="ts">
 import { ref } from "vue";
 import { storeToRefs } from "pinia";
-import {  useAppStoreHook} from "~/store/modules/app";
+import { useAppStoreHook } from "~/store/modules/app";
 
-const emits=defineEmits(['beforehand'])
+const emits = defineEmits(["beforehand"]);
 
-const {bomTableData,erweimaData}=storeToRefs(useAppStoreHook())
+const { bomTableData, erweimaData } = storeToRefs(useAppStoreHook());
 
-const isBeforehand=ref<boolean>(false) 
+const isBeforehand = ref<boolean>(false);
 
-function  handleBeforehand () {
-      isBeforehand.value = !isBeforehand.value
-      emits('beforehand', isBeforehand.value)
-    }
+function handleBeforehand() {
+  isBeforehand.value = !isBeforehand.value;
+  emits("beforehand", isBeforehand.value);
+}
 </script>
 
 <template>
   <el-card shadow="always">
-    <el-descriptions
-      class="margin-top"
-      title="工单生产"
-      :column="3"
-      border
-    >
+    <el-descriptions class="margin-top" title="工单生产" :column="3" border>
       <!-- <template #extra>
         <template v-if="erweimaData.isAntecede === true">
           <el-button
@@ -61,10 +54,7 @@ function  handleBeforehand () {
           <i inline-flex i="ep-medal" />
           当前工序
         </template>
-        <el-tag
-          v-if="erweimaData.curProcessName"
-          size="small"
-        >
+        <el-tag v-if="erweimaData.curProcessName" size="small">
           {{ erweimaData.curProcessName }}
         </el-tag>
       </el-descriptions-item>
@@ -80,16 +70,8 @@ function  handleBeforehand () {
           <i inline-flex i="ep-chat-line-square" />
           Bom明细数据
         </template>
-        <el-popover
-          placement="bottom"
-          width="440"
-          trigger="click"
-        >
-          <el-table
-            :data="bomTableData"
-            border
-            size="small"
-          >
+        <el-popover placement="bottom" width="440" trigger="click">
+          <el-table :data="bomTableData" border size="small">
             <el-table-column
               property="materialCode"
               label="物料编码"
@@ -107,12 +89,7 @@ function  handleBeforehand () {
             />
           </el-table>
           <template #reference>
-            <el-button
-              type="primary"
-              size="small"
-            >
-              查看明细
-            </el-button>
+            <el-button type="primary" size="small"> 查看明细 </el-button>
           </template>
         </el-popover>
       </el-descriptions-item>

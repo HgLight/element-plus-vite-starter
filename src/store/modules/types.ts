@@ -1,8 +1,8 @@
 export type appType = {
-  homeName:string;
+  homeName: string;
   oldWorkTask: any;
   workOrderCode: string | (string | null)[] | null;
   activeName: string;
   erweimaData: any;
-  bomTableData: Array<any>
+  bomTableData: Array<any>;
 };

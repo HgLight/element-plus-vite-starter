@@ -1,7 +1,7 @@
 import Axios, {
   AxiosInstance,
   AxiosRequestConfig,
-  CustomParamsSerializer
+  CustomParamsSerializer,
 } from "axios";
 import { ElMessage } from "element-plus";
 
@@ -9,7 +9,7 @@ import {
   PureHttpError,
   RequestMethods,
   PureHttpResponse,
-  PureHttpRequestConfig
+  PureHttpRequestConfig,
 } from "./types.d";
 import { stringify } from "qs";
 import router from "../../router";
@@ -38,7 +38,7 @@ const CODE_MESSAGE = {
   500: "服务器发生错误",
   502: "网关错误",
   503: "服务不可用，服务器暂时过载或维护",
-  504: "网关超时"
+  504: "网关超时",
 };
 
 // 相关配置请参考：www.axios-js.com/zh-cn/docs/#axios-request-config-1
@@ -48,16 +48,16 @@ const defaultConfig: AxiosRequestConfig = {
   timeout: 10000,
   headers: {
     Accept: "application/json, text/plain, */*",
-    "X-Requested-With": "XMLHttpRequest"
+    "X-Requested-With": "XMLHttpRequest",
   },
   // 数组格式参数序列化（https://github.com/axios/axios/issues/5142）
   paramsSerializer: {
-    serialize: stringify as unknown as CustomParamsSerializer
-  }
+    serialize: stringify as unknown as CustomParamsSerializer,
+  },
 };
 const exportFileConfig: AxiosRequestConfig = {
   ...defaultConfig,
-  timeout: 0
+  timeout: 0,
 };
 
 class PureHttp {
@@ -137,7 +137,7 @@ class PureHttp {
               //     return resolve(config);
               //   }
               // } else {
-                return resolve(config);
+              return resolve(config);
               // }
             });
       },
@@ -191,7 +191,7 @@ class PureHttp {
         ElMessage({
           message: data.message,
           grouping: true,
-          type: "error"
+          type: "error",
         });
         return data;
     }
@@ -208,7 +208,7 @@ class PureHttp {
     ElMessage({
       message: errMsg,
       grouping: true,
-      type: "error"
+      type: "error",
     });
     // if (needErrorLog())
     //   addErrorLog({ message: errMsg, stack: data, isRequest: true });
@@ -231,7 +231,7 @@ class PureHttp {
           ElMessage({
             message: "网络不可用或服务地址无效",
             grouping: true,
-            type: "error"
+            type: "error",
           });
           // return Promise.reject($error);
           return {};
@@ -253,7 +253,7 @@ class PureHttp {
       method,
       url,
       ...param,
-      ...axiosConfig
+      ...axiosConfig,
     } as PureHttpRequestConfig;
 
     // 单独处理自定义请求/响应回掉

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { ElMessage } from "element-plus";
-import {useRouter} from 'vue-router'
+import { useRouter } from "vue-router";
 
 defineProps<{ msg: string }>();
 
@@ -12,7 +12,7 @@ const curDate = ref("");
 const router = useRouter();
 
 const toast = () => {
-  router.push('/')
+  router.push("/");
   ElMessage.success("Hello");
 };
 
@@ -54,7 +54,7 @@ const value1 = ref(true);
     <el-switch
       v-model="value1"
       class="m-2"
-      style="--ep-switch-on-color: black; --ep-switch-off-color: gray;"
+      style="--ep-switch-on-color: black; --ep-switch-off-color: gray"
     />
   </div>
 

@@ -1,93 +1,109 @@
-
-
-<script setup lang='ts'>
+<script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { ref,onMounted,watch } from "vue";
-import { getCheckReportPages } from '~/api'
+import { ref, onMounted, watch } from "vue";
+import { getCheckReportPages } from "~/api";
 
-import {  useAppStoreHook} from "~/store/modules/app";
+import { useAppStoreHook } from "~/store/modules/app";
 
-const props=defineProps({
-    currentTask: {
-      type: Object,
-      required: true
-    }
-})
+const props = defineProps({
+  currentTask: {
+    type: Object,
+    required: true,
+  },
+});
 
-const {erweimaData}=storeToRefs(useAppStoreHook())
+const { erweimaData } = storeToRefs(useAppStoreHook());
 
-const position=ref( 0)
-const tableData=ref<any>([]) 
-const spanArray=ref<Array<number>>([])
+const position = ref(0);
+const tableData = ref<any>([]);
+const spanArray = ref<Array<number>>([]);
 
-watch(tableData,(val)=>{
+watch(tableData, val => {
   if (val.length < 1) {
-    spanArray.value = []
-    return
+    spanArray.value = [];
+    return;
   }
   if (val.length === 1) {
-    spanArray.value = [1]
-    return
+    spanArray.value = [1];
+    return;
   }
-  const _spanArray:Array<number> = []
+  const _spanArray: Array<number> = [];
   val.forEach((_item: any, index: number) => {
     if (index === 0) {
-      _spanArray.push(1)
-      position.value = 0
+      _spanArray.push(1);
+      position.value = 0;
     } else {
       if (val[index].checkTime === val[index - 1].checkTime) {
-        _spanArray[position.value] += 1
-        _spanArray.push(0)
+        _spanArray[position.value] += 1;
+        _spanArray.push(0);
       } else {
-        _spanArray.push(1)
-        position.value = index
+        _spanArray.push(1);
+        position.value = index;
       }
     }
-  })
-  spanArray.value = _spanArray
-})
+  });
+  spanArray.value = _spanArray;
+});
 
-function getData () {
+function getData() {
   getCheckReportPages({
     pageIndex: 1,
     pageSize: 20,
     workOrderCode: erweimaData.value.workOrderCode,
     productId: erweimaData.value.productId,
-    processId: props.currentTask.processId
-  }).then((res) => {
-    const _data = res.data.data || []
-    console.log(_data)
-    const _tableData = _data.map((item: { [x: string]: any; rows: any; }) => {
-      const rows = item.rows
-      rows.forEach((element: { checkName: any; resultValueStr: string; hasValue: any; resultValue: number; thresholdMax: number; thresholdMin: number; }, index: string) => {
-        item['checkName' + index] = element.checkName
-        item['resultValueStr' + index] = element.resultValueStr
-        item['isRed' + index] = element.resultValueStr !== 'OK' && element.hasValue && (element.resultValue > element.thresholdMax || element.resultValue < element.thresholdMin)
-      })
-      return item
-    })
-    tableData.value = _tableData
-  })
+    processId: props.currentTask.processId,
+  }).then(res => {
+    const _data = res.data.data || [];
+    console.log(_data);
+    const _tableData = _data.map((item: { [x: string]: any; rows: any }) => {
+      const rows = item.rows;
+      rows.forEach(
+        (
+          element: {
+            checkName: any;
+            resultValueStr: string;
+            hasValue: any;
+            resultValue: number;
+            thresholdMax: number;
+            thresholdMin: number;
+          },
+          index: string
+        ) => {
+          item["checkName" + index] = element.checkName;
+          item["resultValueStr" + index] = element.resultValueStr;
+          item["isRed" + index] =
+            element.resultValueStr !== "OK" &&
+            element.hasValue &&
+            (element.resultValue > element.thresholdMax ||
+              element.resultValue < element.thresholdMin);
+        }
+      );
+      return item;
+    });
+    tableData.value = _tableData;
+  });
 }
 
-function objectSpanMethod (params:any) {
+function objectSpanMethod(params: any) {
   // 表格合并行
   if (
-    params.columnIndex === 0 || params.columnIndex === 1 || params.columnIndex === 2 || params.columnIndex === 3
+    params.columnIndex === 0 ||
+    params.columnIndex === 1 ||
+    params.columnIndex === 2 ||
+    params.columnIndex === 3
   ) {
-    const _row = spanArray.value[params.rowIndex]
-    const _col = _row > 0 ? 1 : 0
+    const _row = spanArray.value[params.rowIndex];
+    const _col = _row > 0 ? 1 : 0;
     return {
       rowspan: _row,
-      colspan: _col
-    }
+      colspan: _col,
+    };
   }
 }
 
-onMounted(()=>{
-  getData()
-})
-
+onMounted(() => {
+  getData();
+});
 </script>
 
 <template>
@@ -98,12 +114,7 @@ onMounted(()=>{
     style="width: 100%"
     empty-text="暂无数据"
   >
-    <el-table-column
-      v-if="false"
-      type="selection"
-      width="55"
-      align="center"
-    />
+    <el-table-column v-if="false" type="selection" width="55" align="center" />
     <el-table-column
       v-if="false"
       prop="batchCode"
@@ -116,11 +127,7 @@ onMounted(()=>{
       label="产品编码"
       align="center"
     />
-    <el-table-column
-      prop="machineryCode"
-      label="机器编码"
-      align="center"
-    />
+    <el-table-column prop="machineryCode" label="机器编码" align="center" />
     <el-table-column
       v-if="false"
       prop="materialNo"
@@ -135,11 +142,7 @@ onMounted(()=>{
                       <span>{{ scope.row.createTime }}</span>
                     </template>
                   </el-table-column> -->
-    <el-table-column
-      prop="mouldCode"
-      label="模具编码"
-      align="center"
-    />
+    <el-table-column prop="mouldCode" label="模具编码" align="center" />
     <el-table-column
       v-if="true"
       prop="operator"
@@ -152,7 +155,7 @@ onMounted(()=>{
       prop="checkTime"
       min-width="156"
     />
-    <template v-if="tableData&&tableData.length>0">
+    <template v-if="tableData && tableData.length > 0">
       <el-table-column
         v-for="(col, index) in tableData[0]?.rows"
         :key="index"
@@ -160,12 +163,13 @@ onMounted(()=>{
         align="center"
         :min-width="100"
       >
-        <template #default="{row}">
-          <span :style="{'color': row['isRed'+index]?'red':''}">
-            {{ row['resultValueStr'+index] }}
+        <template #default="{ row }">
+          <span :style="{ color: row['isRed' + index] ? 'red' : '' }">
+            {{ row["resultValueStr" + index] }}
           </span>
         </template>
       </el-table-column>
     </template>
   </el-table>
-</template>~/api
+</template>
+~/api

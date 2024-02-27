@@ -1,6 +1,6 @@
 <template>
   <el-config-provider namespace="ep">
-    <BaseHeader :now="now"/>
+    <BaseHeader :now="now" />
     <div class="flex main-container">
       <!-- <BaseSide /> -->
       <div w="full" py="4">
@@ -23,17 +23,17 @@ export default defineComponent({
       now: "",
     };
   },
-  mounted(){
+  mounted() {
     this.getServeTime();
   },
-  methods:{
-     // 获取服务器时间
-     async getServeTime() {
+  methods: {
+    // 获取服务器时间
+    async getServeTime() {
       const res = await getTime({});
       this.now = res;
     },
-  }
-})
+  },
+});
 </script>
 <style>
 #app {

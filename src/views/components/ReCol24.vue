@@ -6,7 +6,7 @@
     :sm="24"
     :xs="24"
     :offset="0"
-    style="margin-bottom: 22px;"
+    style="margin-bottom: 22px"
   >
     <slot />
   </el-col>
