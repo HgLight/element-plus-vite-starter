@@ -1,3 +1,3 @@
 export type appType = {
-  homeName:string
+  homeName: string;
 };

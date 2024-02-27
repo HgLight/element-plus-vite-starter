@@ -7,7 +7,11 @@
       <img src="../assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
     <a href="https://element-plus.org/" target="_blank">
-      <img src="/element-plus-logo-small.svg" class="logo element-plus" alt="Element Plus logo" />
+      <img
+        src="/element-plus-logo-small.svg"
+        class="logo element-plus"
+        alt="Element Plus logo"
+      />
     </a>
   </div>
 </template>

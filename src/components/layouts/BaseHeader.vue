@@ -30,8 +30,8 @@ import { toggleDark } from "~/composables";
   </el-menu>
 </template>
 <style lang="scss" scoped>
-.el-menu-demo{
+.el-menu-demo {
   display: flex;
-  justify-content: flex-end
+  justify-content: flex-end;
 }
 </style>

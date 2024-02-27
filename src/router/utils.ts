@@ -1,7 +1,7 @@
 import {
   RouterHistory,
   createWebHistory,
-  createWebHashHistory
+  createWebHashHistory,
 } from "vue-router";
 
 /** 获取路由历史模式 https://next.router.vuejs.org/zh/guide/essentials/history-mode.html */
@@ -17,7 +17,7 @@ function getHistoryMode(): RouterHistory {
       return createWebHashHistory("");
     } else if (leftMode === "h5") {
       return createWebHistory("");
-    }else{
+    } else {
       return createWebHashHistory("");
     }
   } //has param
@@ -34,6 +34,4 @@ function getHistoryMode(): RouterHistory {
   }
 }
 
-export {
-  getHistoryMode,
-};
+export { getHistoryMode };

@@ -8,7 +8,7 @@ export const getTime = (params?: object) => {
     "get",
     getBaseUrl("DOMAIN_BUS") + "/api/Home/GetTime",
     {
-      params
+      params,
     }
   );
 };
