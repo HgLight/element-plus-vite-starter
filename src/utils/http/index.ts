@@ -2,53 +2,53 @@ import Axios, {
   AxiosInstance,
   AxiosRequestConfig,
   CustomParamsSerializer,
-} from "axios";
-import { ElMessage } from "element-plus";
+} from 'axios';
+import { ElMessage } from 'element-plus';
 
 import {
   PureHttpError,
   RequestMethods,
   PureHttpResponse,
   PureHttpRequestConfig,
-} from "./types.d";
-import { stringify } from "qs";
-import router from "../../router";
-import NProgress from "../progress";
-import { getConfig } from "../../config";
+} from './types.d';
+import { stringify } from 'qs';
+import router from '../../router';
+import NProgress from '../progress';
+import { getConfig } from '../../config';
 // import { getToken, formatToken } from "@/utils/auth";
 // import { useUserStoreHook } from "@/store/modules/user";
 
 // 操作正常Code数组
-const codeVerificationArray = [200, 0, "200", "0"];
+const codeVerificationArray = [200, 0, '200', '0'];
 // 状态信息的字段名称
-const messageName = "msg";
+const messageName = 'msg';
 //状态信息
 const CODE_MESSAGE = {
-  200: "服务器成功返回请求数据",
-  201: "新建或修改数据成功",
-  202: "一个请求已经进入后台排队(异步任务)",
-  204: "删除数据成功",
-  400: "发出信息有误",
-  401: "登录状态已过期，请重新登录。",
-  402: "令牌过期",
-  403: "用户得到授权，但是访问是被禁止的",
-  404: "访问资源不存在",
-  406: "请求格式不可得",
-  410: "请求资源被永久删除，且不会被看到",
-  500: "服务器发生错误",
-  502: "网关错误",
-  503: "服务不可用，服务器暂时过载或维护",
-  504: "网关超时",
+  200: '服务器成功返回请求数据',
+  201: '新建或修改数据成功',
+  202: '一个请求已经进入后台排队(异步任务)',
+  204: '删除数据成功',
+  400: '发出信息有误',
+  401: '登录状态已过期，请重新登录。',
+  402: '令牌过期',
+  403: '用户得到授权，但是访问是被禁止的',
+  404: '访问资源不存在',
+  406: '请求格式不可得',
+  410: '请求资源被永久删除，且不会被看到',
+  500: '服务器发生错误',
+  502: '网关错误',
+  503: '服务不可用，服务器暂时过载或维护',
+  504: '网关超时',
 };
 
 // 相关配置请参考：www.axios-js.com/zh-cn/docs/#axios-request-config-1
 const defaultConfig: AxiosRequestConfig = {
   // 当前使用mock模拟请求，将baseURL制空，如果你的环境用到了http请求，请删除下面的baseURL启用上面的baseURL，并将11行、16行代码注释取消
-  baseURL: "",
+  baseURL: '',
   timeout: 10000,
   headers: {
-    Accept: "application/json, text/plain, */*",
-    "X-Requested-With": "XMLHttpRequest",
+    Accept: 'application/json, text/plain, */*',
+    'X-Requested-With': 'XMLHttpRequest',
   },
   // 数组格式参数序列化（https://github.com/axios/axios/issues/5142）
   paramsSerializer: {
@@ -95,7 +95,7 @@ class PureHttp {
         // 开启进度条动画
         NProgress.start();
         // 优先判断post/get等方法是否传入回掉，否则执行初始化设置等回掉
-        if (typeof config.beforeRequestCallback === "function") {
+        if (typeof config.beforeRequestCallback === 'function') {
           config.beforeRequestCallback(config);
           return config;
         }
@@ -105,7 +105,7 @@ class PureHttp {
         }
 
         /** 请求白名单，放置一些不需要token的接口（通过设置请求白名单，防止token过期后再请求造成的死循环问题） */
-        const whiteList = ["/api/auth/refreshToken"];
+        const whiteList = ['/api/auth/refreshToken'];
         return whiteList.some(v => config.url.indexOf(v) > -1)
           ? config
           : new Promise(resolve => {
@@ -154,7 +154,7 @@ class PureHttp {
     // 关闭进度条动画
     NProgress.done();
     // 优先判断post/get等方法是否传入回掉，否则执行初始化设置等回掉
-    if (typeof $config.beforeResponseCallback === "function") {
+    if (typeof $config.beforeResponseCallback === 'function') {
       $config.beforeResponseCallback(response);
       return response.data;
     }
@@ -164,7 +164,7 @@ class PureHttp {
     }
 
     const { data, status, statusText } = response;
-    const statusName = "code";
+    const statusName = 'code';
     // 若data.code存在，覆盖默认code
     let code = data && data[statusName] ? data[statusName] : status;
     // 若code属于操作正常code，则status修改为200
@@ -194,13 +194,13 @@ class PureHttp {
       // case 402:
       //   return await tryRefreshToken(config);
       case 403:
-        router.push({ path: "/403" }).then(() => {});
+        router.push({ path: '/403' }).then(() => {});
         break;
       case 1000:
         ElMessage({
           message: data.message,
           grouping: true,
-          type: "error",
+          type: 'error',
         });
         return data;
     }
@@ -217,7 +217,7 @@ class PureHttp {
     ElMessage({
       message: errMsg,
       grouping: true,
-      type: "error",
+      type: 'error',
     });
     // if (needErrorLog())
     //   addErrorLog({ message: errMsg, stack: data, isRequest: true });
@@ -238,9 +238,9 @@ class PureHttp {
           NProgress.done();
           // 所有的响应异常 区分来源为取消请求/非取消请求
           ElMessage({
-            message: "网络不可用或服务地址无效",
+            message: '网络不可用或服务地址无效',
             grouping: true,
-            type: "error",
+            type: 'error',
           });
           // return Promise.reject($error);
           return {};
@@ -284,7 +284,7 @@ class PureHttp {
     params?: T,
     config?: PureHttpRequestConfig
   ): Promise<P> {
-    return this.request<P>("post", url, params, config);
+    return this.request<P>('post', url, params, config);
   }
 
   /** 单独抽离的get工具函数 */
@@ -293,30 +293,30 @@ class PureHttp {
     params?: T,
     config?: PureHttpRequestConfig
   ): Promise<P> {
-    return this.request<P>("get", url, params, config);
+    return this.request<P>('get', url, params, config);
   }
 }
 export const http = new PureHttp();
 
 export function getBaseUrl(type: string) {
   switch (type) {
-    case "DOMAIN_BFW":
+    case 'DOMAIN_BFW':
       return getConfig(type)
         ? getConfig(type)
         : import.meta.env.VITE_PROXY_DOMAIN_BFW;
-    case "DOMAIN_BUS":
+    case 'DOMAIN_BUS':
       return getConfig(type)
         ? getConfig(type)
         : import.meta.env.VITE_PROXY_DOMAIN_BUS;
-    case "DOMAIN_FILE":
+    case 'DOMAIN_FILE':
       return getConfig(type)
         ? getConfig(type)
         : import.meta.env.VITE_PROXY_DOMAIN_FILE;
-    case "DOMAIN_PREVIEW":
+    case 'DOMAIN_PREVIEW':
       return getConfig(type)
         ? getConfig(type)
         : import.meta.env.VITE_PROXY_DOMAIN_PREVIEW;
-    case "DOMAIN_GONGYI":
+    case 'DOMAIN_GONGYI':
       return getConfig(type)
         ? getConfig(type)
         : import.meta.env.VITE_PROXY_DOMAIN_GONGYI;

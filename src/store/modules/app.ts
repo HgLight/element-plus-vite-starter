@@ -1,10 +1,11 @@
-import { store } from "../index";
-import { appType } from "./types";
-import { defineStore } from "pinia";
-import { getFlowCard, getWorkOrderBomList } from "../../api";
+import { store } from '../index';
+import { appType } from './types';
+import { defineStore } from 'pinia';
+import { getFlowCard, getWorkOrderBomList } from '../../api';
+
 
 export const useAppStore = defineStore({
-  id: "pure-app",
+  id: 'pure-app',
   state: (): appType => ({
     homeName: "首页",
     oldWorkTask: null,
@@ -15,7 +16,7 @@ export const useAppStore = defineStore({
   }),
   getters: {
     homeEName(state): string {
-      return "Home Page";
+      return 'Home Page';
     },
 
     workTaskFeedbacks(state): Array<any> {

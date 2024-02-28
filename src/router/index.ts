@@ -1,14 +1,14 @@
-import { createRouter, Router } from "vue-router";
-import type { RouteComponent, RouteLocationNormalized } from "vue-router";
+import { createRouter, Router } from 'vue-router';
+import type { RouteComponent, RouteLocationNormalized } from 'vue-router';
 
-import Home from "../views/Home.vue";
-import { getHistoryMode } from "./utils";
-import NProgress from "../utils/progress";
+import Home from '../views/Home.vue';
+import { getHistoryMode } from './utils';
+import NProgress from '../utils/progress';
 
 const routes = [
   {
-    path: "/",
-    name: "Home",
+    path: '/',
+    name: 'Home',
     component: Home,
   },
 ];

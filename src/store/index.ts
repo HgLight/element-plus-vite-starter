@@ -1,5 +1,5 @@
-import type { App } from "vue";
-import { createPinia } from "pinia";
+import type { App } from 'vue';
+import { createPinia } from 'pinia';
 /**
  * 一个 Store （如 Pinia）是一个实体，它持有未绑定到您的组件树的状态和业务逻辑。
  * 换句话说，它托管全局状态。

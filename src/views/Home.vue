@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { storeToRefs } from "pinia";
+import { storeToRefs } from 'pinia';
 import queryString from "qs";
 import { ElMessage } from "element-plus";
 
 import Mingxi from "./components/Mingxi.vue";
 import { getSignalr } from "~/utils/signalR";
 import ScanDialog from "./components/ScanDialog.vue";
-import { useAppStoreHook } from "../store/modules/app";
+import { useAppStoreHook } from '../store/modules/app';
 
 defineOptions({
-  name: "HomePage",
+  name: 'HomePage',
 });
 
 const signalr = getSignalr();

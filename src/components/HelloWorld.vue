@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { ElMessage } from "element-plus";
-import { useRouter } from "vue-router";
+import { ref } from 'vue';
+import { ElMessage } from 'element-plus';
+import { useRouter } from 'vue-router';
 
 defineProps<{ msg: string }>();
 
 const count = ref(0);
-const input = ref("element-plus");
+const input = ref('element-plus');
 
-const curDate = ref("");
+const curDate = ref('');
 const router = useRouter();
 
 const toast = () => {
-  router.push("/");
-  ElMessage.success("Hello");
+  router.push('/');
+  ElMessage.success('Hello');
 };
 
 const value1 = ref(true);
