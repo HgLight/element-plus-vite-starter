@@ -176,7 +176,14 @@ class PureHttp {
         // 错误内容：{ code: 1, msg: '非法参数' }
         // 正确内容：{ code: 200, data: {  }, msg: '操作正常' }
         // return data
-        return data;
+        if (
+          $config.url?.indexOf("/Export") > -1 ||
+          $config.url?.indexOf("/Template") > -1
+        ) {
+          return response;
+        } else {
+          return response.data;
+        }
       case 401:
         // resetAll().then(() => {
         //   router.push({ path: "/login", replace: true }).then(() => {});
