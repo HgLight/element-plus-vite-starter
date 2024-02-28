@@ -286,7 +286,7 @@ function getDatas() {
       tableData.value = [];
       _tableData.forEach((item: any) => {
         list.forEach(
-          (sitem: { materialId: any; processId: any; thresholdMax: any }) => {
+          (sitem: { materialId: any; processId: any; thresholdMax: any; quantityMrp: any }) => {
             if (
               item.materialId === sitem.materialId &&
               item.processId === sitem.processId
@@ -295,6 +295,7 @@ function getDatas() {
               item.batchCodeScanStr = "";
               item.batchCodeArray = [];
               item.thresholdMax = sitem.thresholdMax;
+              item.quantityMrp=sitem.quantityMrp
               tableData.value.push(item);
             }
           }
