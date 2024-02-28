@@ -126,7 +126,7 @@ onMounted(() => {
       label="产品编码"
       align="center"
     />
-    <el-table-column prop="machineryCode" label="机器编码" align="center" />
+    <el-table-column prop="machineryCode" label="机器编码" align="center" min-width="100"/>
     <el-table-column
       v-if="false"
       prop="materialNo"
@@ -141,7 +141,7 @@ onMounted(() => {
                       <span>{{ scope.row.createTime }}</span>
                     </template>
                   </el-table-column> -->
-    <el-table-column prop="mouldCode" label="模具编码" align="center" />
+    <el-table-column prop="mouldCode" label="模具编码" align="center" min-width="100"/>
     <el-table-column
       v-if="true"
       prop="operator"
@@ -152,7 +152,7 @@ onMounted(() => {
       label="检测时间"
       align="center"
       prop="checkTime"
-      min-width="156"
+      min-width="164"
     />
     <template v-if="tableData && tableData.length > 0">
       <el-table-column
