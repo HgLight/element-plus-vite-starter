@@ -177,8 +177,10 @@ class PureHttp {
         // 正确内容：{ code: 200, data: {  }, msg: '操作正常' }
         // return data
         if (
-          $config.url?.indexOf("/Export") > -1 ||
-          $config.url?.indexOf("/Template") > -1
+          ($config.url &&
+            ($config.url?.indexOf("/Export") > -1 ||
+              $config.url?.indexOf("/Template") > -1)) ||
+          $config.responseType == "blob"
         ) {
           return response;
         } else {

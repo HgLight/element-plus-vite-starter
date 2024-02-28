@@ -528,7 +528,7 @@ function resetForm(this: any) {
                 <template #default="{ row }">
                   <el-button
                     link
-                    type="text"
+                    type="primary"
                     :loading="row.exporting"
                     @click="handleQr(row)"
                   >
