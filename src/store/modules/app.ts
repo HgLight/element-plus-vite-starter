@@ -1,15 +1,15 @@
-import { store } from "../index";
-import { appType } from "./types";
-import { defineStore } from "pinia";
+import { store } from '../index';
+import { appType } from './types';
+import { defineStore } from 'pinia';
 
 export const useAppStore = defineStore({
-  id: "pure-app",
+  id: 'pure-app',
   state: (): appType => ({
-    homeName: "首页",
+    homeName: '首页',
   }),
   getters: {
     homeEName(state): string {
-      return "Home Page";
+      return 'Home Page';
     },
   },
   actions: {

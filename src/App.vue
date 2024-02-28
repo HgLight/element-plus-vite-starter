@@ -13,23 +13,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import en from "element-plus/dist/locale/en.mjs";
-import zhCn from "element-plus/dist/locale/zh-cn.mjs";
+import { defineComponent } from 'vue';
+import en from 'element-plus/dist/locale/en.mjs';
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 
-import { getTime } from "./api/home";
+import { getTime } from './api/home';
 
 export default defineComponent({
-  name: "App",
+  name: 'App',
   data() {
     return {
-      now: "",
-      language: "zh-cn",
+      now: '',
+      language: 'zh-cn',
     };
   },
   computed: {
     currentLocale() {
-      return this.language === "zh-cn" ? zhCn : en;
+      return this.language === 'zh-cn' ? zhCn : en;
     },
   },
   mounted() {

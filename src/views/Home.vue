@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { storeToRefs } from "pinia";
-import { useAppStoreHook } from "../store/modules/app";
+import { storeToRefs } from 'pinia';
+import { useAppStoreHook } from '../store/modules/app';
 
 defineOptions({
-  name: "HomePage",
+  name: 'HomePage',
 });
 
 const { homeName, homeEName } = storeToRefs(useAppStoreHook());
