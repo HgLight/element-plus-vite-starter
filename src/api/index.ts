@@ -217,7 +217,7 @@ export function generateCode(data: object) {
 export function getProductDetail(params: object) {
   return http.request<any>(
     "get",
-    'getBaseUrl("DOMAIN_BUS") +/api/Product/GetOne',
+    getBaseUrl("DOMAIN_BUS") +'/api/Product/GetOne',
     {
       params,
     }
