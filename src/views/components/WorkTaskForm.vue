@@ -502,7 +502,7 @@ onMounted(() => {
               <el-input
                 v-if="formData.issueStatus === 2"
                 v-model="quantityNum"
-                style="width: 200px; margin-left: 10px"
+                style="width: 260px; margin-left: 10px"
                 placeholder="请输入生产数量"
               >
                 <template v-if="false" #prepend> 生产数量 </template>
