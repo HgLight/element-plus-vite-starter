@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { storeToRefs } from "pinia";
-import { ElMessage } from "element-plus";
-import { ref, onMounted, watch } from "vue";
+import { storeToRefs } from 'pinia';
+import { ElMessage } from 'element-plus';
+import { ref, onMounted, watch } from 'vue';
 
 import {
   startWorkTask,
@@ -11,13 +11,13 @@ import {
   getConfigByConfigKey,
   getMouldList,
   getOperatorList,
-} from "~/api";
-import ReCol24 from "./ReCol24.vue";
-import ReColForm from "./ReColForm.vue";
-import UnlockFormDialog from "./UnlockFormDialog.vue";
-import { useAppStoreHook } from "~/store/modules/app";
-import PickingFormDialog from "./PickingFormDialog.vue";
-import ProductReceiptFormDialog from "./ProductReceiptFormDialog.vue";
+} from '~/api';
+import ReCol24 from './ReCol24.vue';
+import ReColForm from './ReColForm.vue';
+import UnlockFormDialog from './UnlockFormDialog.vue';
+import { useAppStoreHook } from '~/store/modules/app';
+import PickingFormDialog from './PickingFormDialog.vue';
+import ProductReceiptFormDialog from './ProductReceiptFormDialog.vue';
 
 const props = defineProps({
   defaultQuantityNum: {
@@ -30,49 +30,49 @@ const props = defineProps({
     required: true,
   },
 });
-const emits = defineEmits(["done"]);
+const emits = defineEmits(['done']);
 
 const { previousTask, erweimaData } = storeToRefs(useAppStoreHook());
 const formRules = ref({
   // machineryId: [{ required: true, trigger: 'blur', message: '请选择设备' }],
   mouldId: [
     {
-      trigger: "blur",
-      message: "请选择模具",
+      trigger: 'blur',
+      message: '请选择模具',
       validator: (
         _rule: any,
         value: string,
         callback: (arg0?: Error | undefined) => void
       ) => {
         if (
-          formData.value.processName.indexOf("成型") !== -1 &&
-          formData.value.processName.indexOf("成型工检") === -1 &&
-          value === ""
+          formData.value.processName.indexOf('成型') !== -1 &&
+          formData.value.processName.indexOf('成型工检') === -1 &&
+          value === ''
         ) {
-          callback(new Error("请选择模具"));
+          callback(new Error('请选择模具'));
         } else {
           callback();
         }
       },
     },
   ],
-  userId: [{ required: true, trigger: "blur", message: "请选择操作人" }],
+  userId: [{ required: true, trigger: 'blur', message: '请选择操作人' }],
   quantityQualified: [
-    { required: true, trigger: "blur", message: "请输入产出数量" },
+    { required: true, trigger: 'blur', message: '请输入产出数量' },
     {
-      trigger: "blur",
+      trigger: 'blur',
       validator: (
         _rule: any,
         value: any,
         callback: (arg0?: Error | undefined) => void
       ) => {
-        if (value === "") {
-          callback(new Error("请输入产出数量"));
+        if (value === '') {
+          callback(new Error('请输入产出数量'));
         } else if (value === 0) {
-          callback(new Error("产出数量不能为0!"));
+          callback(new Error('产出数量不能为0!'));
         } else if (
           formData.value.unlockUserId ===
-            "00000000-0000-0000-0000-000000000000" &&
+            '00000000-0000-0000-0000-000000000000' &&
           (Math.abs(value - formData.value.quantity) /
             formData.value.quantity) *
             100 >
@@ -80,9 +80,9 @@ const formRules = ref({
         ) {
           callback(
             new Error(
-              "产出数量超过或低于百分之" +
+              '产出数量超过或低于百分之' +
                 quantityQualifiedDeviation.value +
-                ",需要解锁。"
+                ',需要解锁。'
             )
           );
         } else {
@@ -190,7 +190,7 @@ function getMouldListData() {
  */
 function getQuantityQualifiedDeviationData() {
   getConfigByConfigKey({
-    configKey: "OffsetPercent",
+    configKey: 'OffsetPercent',
     // mouldWorkshop: formData.value.workshopId,
     // sysOwnerCpy: erweimaData.value.sysOwnerCpy
   })
@@ -205,7 +205,7 @@ function getQuantityQualifiedDeviationData() {
  * 刷新数据
  */
 function refreshData() {
-  emits("done");
+  emits('done');
 }
 /**
  * 开始任务事件
@@ -222,7 +222,7 @@ function handleStart() {
       // } else {
       if (code === 0) {
         ElMessage.success(message);
-        emits("done");
+        emits('done');
       }
 
       // }
@@ -256,7 +256,7 @@ function handleEnd() {
                 // } else {
                 if (code === 0) {
                   ElMessage.success(message);
-                  emits("done");
+                  emits('done');
                 }
                 // }
               })
@@ -286,7 +286,7 @@ function handleEnd() {
         // } else {
         if (code === 0) {
           ElMessage.success(message);
-          emits("done");
+          emits('done');
         }
         // }
       })
@@ -303,7 +303,7 @@ function handleEnd() {
  */
 function handlePick() {
   if (!quantityNum.value) {
-    ElMessage.info("请输入生产数量");
+    ElMessage.info('请输入生产数量');
     return;
   }
   pickingDialogRef.value.show(
@@ -318,7 +318,7 @@ function handlePick() {
  */
 function handleReceipt() {
   if (!formData.value.quantityQualified) {
-    ElMessage.warning("请输入产出数量");
+    ElMessage.warning('请输入产出数量');
     return;
   }
   receiptDialogRef.value.show(formData.value, erweimaData.value);
@@ -333,11 +333,11 @@ function handleMachineryChange(val: any) {
     formData.value.machineryName = machinery.name;
     formData.value.machineryCode = machinery.code;
   } else {
-    formData.value.machineryName = "";
-    formData.value.machineryId = "";
-    formData.value.machineryCode = "";
+    formData.value.machineryName = '';
+    formData.value.machineryId = '';
+    formData.value.machineryCode = '';
   }
-  formRef.value.validateField("machineryId", () => null);
+  formRef.value.validateField('machineryId', () => null);
 }
 /**
  * 模具改变回调
@@ -347,7 +347,7 @@ function handleMouldChange(val: any) {
   const mould = mouldList.value.find(item => item.value === val);
   formData.value.mouldName = mould.name;
   formData.value.mouldCode = mould.code;
-  formRef.value.validateField("mouldId", () => null);
+  formRef.value.validateField('mouldId', () => null);
 }
 /**
  * 操作人改变回调
@@ -358,7 +358,7 @@ function handleUserChange(val: any) {
   formData.value.userId = user.value;
   formData.value.userName = user.name;
   formData.value.staffName = user.remark;
-  formRef.value.validateField("userId", () => null);
+  formRef.value.validateField('userId', () => null);
 }
 /**
  * 解锁事件
@@ -378,10 +378,10 @@ function modify(isFinish?: boolean) {
       ...formData.value,
       feedbackId: undefined, // 记录主键ID
       feedbackType: 1, // 报工类型 1-自行报工 2-统一报工
-      feedbackTypeName: "自行报工", // 报工类型 1-自行报工 2-统一报工
+      feedbackTypeName: '自行报工', // 报工类型 1-自行报工 2-统一报工
       workstationId: formData.value.workstationId
         ? formData.value.workstationId
-        : "00000000-0000-0000-0000-000000000000", // 工作站ID
+        : '00000000-0000-0000-0000-000000000000', // 工作站ID
       workstationCode: formData.value.workstationCode, // 工作站编码
       workstationName: formData.value.workstationName, // 工作站名称
       workshopId: formData.value.workshopId, // 车间ID
@@ -403,7 +403,7 @@ function modify(isFinish?: boolean) {
       productCode: erweimaData.value.productName, // 产品编码
       productName: erweimaData.value.productId, // productCode
       specification: erweimaData.value.specification, // 规格型号
-      unitOfMeasure: "", // 计量单位
+      unitOfMeasure: '', // 计量单位
       quantityTask: formData.value.quantityTask, // 排产数量/投入数量
       quantityFeedback: formData.value.quantity, // 本次报工数量(合格数量+不合格数量)
       quantityQualified: formData.value.quantityQualified, // 合格数量/产出数量
@@ -412,13 +412,13 @@ function modify(isFinish?: boolean) {
       userName: formData.value.userName, // 报工人员账号
       staffName: formData.value.staffName, // 报工人员姓名
       feedbackChannel: 1, // 报工途径 1-PAD 2-手机 3-电脑
-      feedbackChannelName: "PAD", // 报工途径 1-PAD 2-手机 3-电脑
+      feedbackChannelName: 'PAD', // 报工途径 1-PAD 2-手机 3-电脑
       feedbackTime: undefined, // 报工时间
       recordUserId: undefined, // 录入人员Id
-      recordUserName: "", // 录入人员账号
-      recordStaffName: "", // 录入人员姓名
+      recordUserName: '', // 录入人员账号
+      recordStaffName: '', // 录入人员姓名
       status: formData.value.status, // 状态 1-草稿 2-已提交
-      remarks: "", // 备注
+      remarks: '', // 备注
       unlockUserId: formData.value.unlockUserId, // 解锁人ID
       unlockStaffName: formData.value.unlockStaffName, // 解锁人姓名
       unlockReason: formData.value.unlockReason, // 解锁原因
@@ -429,7 +429,7 @@ function modify(isFinish?: boolean) {
         // } else {
         if (code === 0) {
           if (!isFinish) {
-            emits("done");
+            emits('done');
           }
           resolve(code);
         }

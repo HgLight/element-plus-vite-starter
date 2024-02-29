@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { storeToRefs } from "pinia";
-import { useAppStoreHook } from "~/store/modules/app";
+import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useAppStoreHook } from '~/store/modules/app';
 
-const emits = defineEmits(["beforehand"]);
+const emits = defineEmits(['beforehand']);
 
 const { bomTableData, erweimaData } = storeToRefs(useAppStoreHook());
 
@@ -11,7 +11,7 @@ const isBeforehand = ref<boolean>(false);
 
 function handleBeforehand() {
   isBeforehand.value = !isBeforehand.value;
-  emits("beforehand", isBeforehand.value);
+  emits('beforehand', isBeforehand.value);
 }
 </script>
 

@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue';
 
 const requesting = ref<boolean>(false);
 const dialogVisible = ref<boolean>(false);
-const QRcodeVal = ref<string>(""); // HL23070303 SC23063003 MY23070401 MY23070403 MY23070404 MY23070601 SC23071106 MY240221008
+const QRcodeVal = ref<string>(''); // HL23070303 SC23063003 MY23070401 MY23070403 MY23070404 MY23070601 SC23071106 MY240221008
 
 defineOptions({
-  name: "ScanDialog",
+  name: 'ScanDialog',
 });
-const emits = defineEmits(["complete"]);
+const emits = defineEmits(['complete']);
 
 function show() {
   dialogVisible.value = true;
 }
 
 function close(code: number, _QRcodeVal: string) {
-  console.log("code", code);
+  console.log('code', code);
   requesting.value = false;
   if (code !== 0) {
     dialogVisible.value = false;
@@ -31,13 +31,13 @@ function handleChange() {
     return;
   }
   if (!requesting.value) {
-    emits("complete", QRcodeVal.value);
+    emits('complete', QRcodeVal.value);
   }
   requesting.value = true;
 }
 
-if (import.meta.env.MODE == "development") {
-  QRcodeVal.value = "SC240228002";
+if (import.meta.env.MODE == 'development') {
+  QRcodeVal.value = 'SC240228002';
 }
 </script>
 

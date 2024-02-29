@@ -54,7 +54,7 @@ const { workOrderCode } = storeToRefs(useAppStoreHook());
   </div>
 </template>
 <style lang="scss" scoped>
-.work-order-code{
+.work-order-code {
   border-bottom: solid 1px var(--ep-menu-border-color);
 }
 .el-menu-demo {

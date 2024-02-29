@@ -1,12 +1,12 @@
-import { http } from "../utils/http";
+import { http } from '../utils/http';
 
-import { getBaseUrl } from "../utils/http";
+import { getBaseUrl } from '../utils/http';
 
 // 获取服务器时间
 export const getTime = (params?: object) => {
   return http.request<any>(
-    "get",
-    getBaseUrl("DOMAIN_BUS") + "/api/Home/GetTime",
+    'get',
+    getBaseUrl('DOMAIN_BUS') + '/api/Home/GetTime',
     {
       params,
     }
@@ -16,8 +16,8 @@ export const getTime = (params?: object) => {
 // 获取明细
 export function getFlowCard(params: object) {
   return http.request<any>(
-    "get",
-    getBaseUrl("DOMAIN_BUS") + "/api/WorkTask/GetFlowCard",
+    'get',
+    getBaseUrl('DOMAIN_BUS') + '/api/WorkTask/GetFlowCard',
     {
       params,
     }
@@ -31,8 +31,8 @@ export function getFlowCard(params: object) {
  */
 export function getWorkOrderBomList(params: object) {
   return http.request<any>(
-    "get",
-    getBaseUrl("DOMAIN_BUS") + "/api/WorkOrderBom/GetWorkOrderBomList",
+    'get',
+    getBaseUrl('DOMAIN_BUS') + '/api/WorkOrderBom/GetWorkOrderBomList',
     {
       params,
     }
@@ -42,8 +42,8 @@ export function getWorkOrderBomList(params: object) {
 // 获取检测模板-检测模板中工序及检测项信息
 export function getCheckProcessList(params: object) {
   return http.request<any>(
-    "get",
-    getBaseUrl("DOMAIN_BUS") + "/api/CheckProcess/GetCheckProcessList",
+    'get',
+    getBaseUrl('DOMAIN_BUS') + '/api/CheckProcess/GetCheckProcessList',
     {
       params,
     }
@@ -57,8 +57,8 @@ export function getCheckProcessList(params: object) {
  */
 export function getWorkOrderBomTempList(params: object) {
   return http.request<any>(
-    "get",
-    getBaseUrl("DOMAIN_BUS") + "/api/WorkOrderBom/GetTempList",
+    'get',
+    getBaseUrl('DOMAIN_BUS') + '/api/WorkOrderBom/GetTempList',
     {
       params,
     }
@@ -72,8 +72,8 @@ export function getWorkOrderBomTempList(params: object) {
  */
 export function getWorkFeedbackDefectListByTaskId(params: object) {
   return http.request<any>(
-    "get",
-    getBaseUrl("DOMAIN_BUS") + "/api/WorkFeedbackDefect/GetListByTaskId",
+    'get',
+    getBaseUrl('DOMAIN_BUS') + '/api/WorkFeedbackDefect/GetListByTaskId',
     {
       params,
     }
@@ -87,8 +87,8 @@ export function getWorkFeedbackDefectListByTaskId(params: object) {
  */
 export function getDefectListNv(params: object) {
   return http.request<any>(
-    "get",
-    getBaseUrl("DOMAIN_BUS") + "/api/Defect/GetListNv",
+    'get',
+    getBaseUrl('DOMAIN_BUS') + '/api/Defect/GetListNv',
     {
       params,
     }
@@ -102,8 +102,8 @@ export function getDefectListNv(params: object) {
  */
 export function deleteWorkFeedbackDefect(data: object) {
   return http.request<any>(
-    "post",
-    getBaseUrl("DOMAIN_BUS") + "/api/WorkFeedbackDefect/Delete",
+    'post',
+    getBaseUrl('DOMAIN_BUS') + '/api/WorkFeedbackDefect/Delete',
     {
       data,
     }
@@ -117,8 +117,8 @@ export function deleteWorkFeedbackDefect(data: object) {
  */
 export function addWorkFeedbackDefect(data: object) {
   return http.request<any>(
-    "post",
-    getBaseUrl("DOMAIN_BUS") + "/api/WorkFeedbackDefect/Add",
+    'post',
+    getBaseUrl('DOMAIN_BUS') + '/api/WorkFeedbackDefect/Add',
     {
       data,
     }
@@ -128,8 +128,8 @@ export function addWorkFeedbackDefect(data: object) {
 // 工序开始
 export function startWorkTask(data: object) {
   return http.request<any>(
-    "post",
-    getBaseUrl("DOMAIN_BUS") + "/api/WorkTask/Start",
+    'post',
+    getBaseUrl('DOMAIN_BUS') + '/api/WorkTask/Start',
     {
       data,
     }
@@ -139,8 +139,8 @@ export function startWorkTask(data: object) {
 // 工序结束
 export function finishWorkTask(data: object) {
   return http.request<any>(
-    "post",
-    getBaseUrl("DOMAIN_BUS") + "/api/WorkTask/Finish",
+    'post',
+    getBaseUrl('DOMAIN_BUS') + '/api/WorkTask/Finish',
     {
       data,
     }
@@ -150,8 +150,8 @@ export function finishWorkTask(data: object) {
 // 工作站NV
 export function getWorkstationListNv(params: object) {
   return http.request<any>(
-    "get",
-    getBaseUrl("DOMAIN_BUS") + "/api/Workstation/GetListNv",
+    'get',
+    getBaseUrl('DOMAIN_BUS') + '/api/Workstation/GetListNv',
     {
       params,
     }
@@ -161,8 +161,8 @@ export function getWorkstationListNv(params: object) {
 // 提交领料
 export function addIssueHeader(data: object) {
   return http.request<any>(
-    "post",
-    getBaseUrl("DOMAIN_BUS") + "/api/IssueHeader/Add",
+    'post',
+    getBaseUrl('DOMAIN_BUS') + '/api/IssueHeader/Add',
     {
       data,
     }
@@ -172,8 +172,8 @@ export function addIssueHeader(data: object) {
 // 修改生产任务
 export function saveWorkFeedback(data: object) {
   return http.request<any>(
-    "post",
-    getBaseUrl("DOMAIN_BUS") + "/api/WorkFeedback/Save",
+    'post',
+    getBaseUrl('DOMAIN_BUS') + '/api/WorkFeedback/Save',
     {
       data,
     }
@@ -183,8 +183,8 @@ export function saveWorkFeedback(data: object) {
 // 添加产品入库单
 export function addProductReceiptHeader(data: object) {
   return http.request<any>(
-    "post",
-    getBaseUrl("DOMAIN_BUS") + "/api/ProductReceiptHeader/AddForGongYi",
+    'post',
+    getBaseUrl('DOMAIN_BUS') + '/api/ProductReceiptHeader/AddForGongYi',
     {
       data,
     }
@@ -194,8 +194,8 @@ export function addProductReceiptHeader(data: object) {
 // 获取仓库树
 export function getWarehouseTree(params: object) {
   return http.request<any>(
-    "get",
-    getBaseUrl("DOMAIN_BUS") + "/api/Warehouse/GetWarehouseTree",
+    'get',
+    getBaseUrl('DOMAIN_BUS') + '/api/Warehouse/GetWarehouseTree',
     {
       params,
     }
@@ -205,8 +205,8 @@ export function getWarehouseTree(params: object) {
 // 入库
 export function generateCode(data: object) {
   return http.request<any>(
-    "post",
-    getBaseUrl("DOMAIN_BUS") + "/api/AutoCodeRule/GenerateCode",
+    'post',
+    getBaseUrl('DOMAIN_BUS') + '/api/AutoCodeRule/GenerateCode',
     {
       data,
     }
@@ -216,8 +216,8 @@ export function generateCode(data: object) {
 // 获取产品详情
 export function getProductDetail(params: object) {
   return http.request<any>(
-    "get",
-    getBaseUrl("DOMAIN_BUS") +'/api/Product/GetOne',
+    'get',
+    getBaseUrl('DOMAIN_BUS') + '/api/Product/GetOne',
     {
       params,
     }
@@ -227,8 +227,8 @@ export function getProductDetail(params: object) {
 // 先行
 export function SelectDetail1(params: object) {
   return http.request<any>(
-    "get",
-    getBaseUrl("DOMAIN_BUS") + "ProductionCard/SelectDetail1",
+    'get',
+    getBaseUrl('DOMAIN_BUS') + 'ProductionCard/SelectDetail1',
     {
       params,
     }
@@ -238,8 +238,8 @@ export function SelectDetail1(params: object) {
 // 查询质检
 export function getCheckReportPages(params: object) {
   return http.request<any>(
-    "get",
-    getBaseUrl("DOMAIN_BUS") + "/api/CheckReportHeader/GetPages",
+    'get',
+    getBaseUrl('DOMAIN_BUS') + '/api/CheckReportHeader/GetPages',
     {
       params,
     }
@@ -249,8 +249,8 @@ export function getCheckReportPages(params: object) {
 // 设备
 export function getMachineryList(params: object) {
   return http.request<any>(
-    "get",
-    getBaseUrl("DOMAIN_BUS") + "/api/Machinery/GetListNvByProcessId",
+    'get',
+    getBaseUrl('DOMAIN_BUS') + '/api/Machinery/GetListNvByProcessId',
     {
       params,
     }
@@ -260,8 +260,8 @@ export function getMachineryList(params: object) {
 // 模具
 export function getMouldList(params: object) {
   return http.request<any>(
-    "get",
-    getBaseUrl("DOMAIN_BUS") + "/api/Moulds/GetListNv",
+    'get',
+    getBaseUrl('DOMAIN_BUS') + '/api/Moulds/GetListNv',
     {
       params,
     }
@@ -271,8 +271,8 @@ export function getMouldList(params: object) {
 // 操作人
 export function getOperatorList(params: object) {
   return http.request<any>(
-    "get",
-    getBaseUrl("DOMAIN_BUS") + "/api/WorkFeedback/GetListNvByDeptId",
+    'get',
+    getBaseUrl('DOMAIN_BUS') + '/api/WorkFeedback/GetListNvByDeptId',
     {
       params,
     }
@@ -282,8 +282,8 @@ export function getOperatorList(params: object) {
 // 根据配置键名获取配置详情
 export function getConfigByConfigKey(params: object) {
   return http.request<any>(
-    "get",
-    getBaseUrl("DOMAIN_BFW") + "/api/Config/GetConfigByConfigKey",
+    'get',
+    getBaseUrl('DOMAIN_BFW') + '/api/Config/GetConfigByConfigKey',
     {
       params,
     }
@@ -293,8 +293,8 @@ export function getConfigByConfigKey(params: object) {
 // 登录
 export function postLogin(data: object) {
   return http.request<any>(
-    "post",
-    getBaseUrl("DOMAIN_BFW") + "/api/auth/getToken",
+    'post',
+    getBaseUrl('DOMAIN_BFW') + '/api/auth/getToken',
     {
       data,
     }
@@ -307,35 +307,35 @@ export function exportExcel(
   form: { [x: string]: string; workOrderCode?: any; exportType?: any },
   _blobType: string | undefined
 ) {
-  let buffer = "";
+  let buffer = '';
   for (const key in form) {
     if (Object.prototype.hasOwnProperty.call(form, key)) {
-      buffer += key + "=" + form[key] + "&";
+      buffer += key + '=' + form[key] + '&';
     }
   }
   if (buffer.length > 0) {
     buffer = buffer.substring(0, buffer.length - 1);
   }
-  const url = getBaseUrl("DOMAIN_BUS") + tempUrl + buffer;
+  const url = getBaseUrl('DOMAIN_BUS') + tempUrl + buffer;
 
   return new Promise((resolve, reject) => {
     http
-      .request<any>("get", url, {
-        responseType: "blob", // 服务器响应的数据类型，可以是 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'，默认是'json'
+      .request<any>('get', url, {
+        responseType: 'blob', // 服务器响应的数据类型，可以是 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'，默认是'json'
       })
       .then(res => {
         // BlobPart;
         const { data, headers } = res;
-        const contentDisposition = headers["content-disposition"];
-        const contentType = headers["content-type"];
+        const contentDisposition = headers['content-disposition'];
+        const contentType = headers['content-type'];
         if (contentDisposition) {
-          const name1 = contentDisposition.split(";")[2];
+          const name1 = contentDisposition.split(';')[2];
           if (name1) {
-            const name2 = name1.split("filename*=")[1];
+            const name2 = name1.split('filename*=')[1];
             if (name2) {
               const name3 = name2.split("''")[1];
               if (name3) {
-                const name4 = name3.split(".")[0];
+                const name4 = name3.split('.')[0];
                 if (name4) {
                   fileName = decodeURI(name4);
                 }
@@ -348,19 +348,19 @@ export function exportExcel(
           return;
         }
         let blobType =
-          form.exportType && form.exportType !== "1" && form.exportType !== "2"
-            ? form.exportType === "excel"
-              ? _blobType === "xls"
-                ? "application/vnd.ms-excel"
-                : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-              : form.exportType === "word"
-                ? "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                : form.exportType === "pdf"
-                  ? "application/pdf"
-                  : "text"
-            : _blobType === "xls"
-              ? "application/vnd.ms-excel"
-              : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+          form.exportType && form.exportType !== '1' && form.exportType !== '2'
+            ? form.exportType === 'excel'
+              ? _blobType === 'xls'
+                ? 'application/vnd.ms-excel'
+                : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+              : form.exportType === 'word'
+                ? 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                : form.exportType === 'pdf'
+                  ? 'application/pdf'
+                  : 'text'
+            : _blobType === 'xls'
+              ? 'application/vnd.ms-excel'
+              : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
         if (contentType) {
           blobType = contentType;
         }
@@ -376,8 +376,8 @@ export function exportExcel(
         // } else {
         const href = URL.createObjectURL(blob); // 创建新的URL表示指定的blob对象
         // window.open(href);
-        const a = document.createElement("a"); // 创建a标签
-        a.style.display = "none";
+        const a = document.createElement('a'); // 创建a标签
+        a.style.display = 'none';
         a.href = href; // 指定下载链接
         a.download = fileName; // 指定下载文件名
         a.click(); // 触发下载

@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import dayjs from "dayjs";
-import { ref } from "vue";
-import { storeToRefs } from "pinia";
-import { ElMessage } from "element-plus";
+import dayjs from 'dayjs';
+import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { ElMessage } from 'element-plus';
 
-import { useAppStoreHook } from "~/store/modules/app";
+import { useAppStoreHook } from '~/store/modules/app';
 import {
   addIssueHeader,
   getWorkstationListNv,
   generateCode,
   getWorkOrderBomTempList,
-} from "~/api";
+} from '~/api';
 
 const props = defineProps({
   workTask: {
@@ -18,7 +18,7 @@ const props = defineProps({
     required: true,
   },
 });
-const emits = defineEmits(["done"]);
+const emits = defineEmits(['done']);
 
 const { bomTableData, erweimaData } = storeToRefs(useAppStoreHook());
 
@@ -33,106 +33,106 @@ const workStations = ref<Array<any>>([]);
 const tableData = ref<any>([
   {
     /** 【数据库字段】行主键ID */
-    rowId: "",
+    rowId: '',
     /** 【数据库字段】工单ID */
-    workOrderId: "",
+    workOrderId: '',
     /** 【数据库字段】物料ID */
-    materialId: "",
+    materialId: '',
     /** 【数据库字段】物料编码 */
-    materialCode: "",
+    materialCode: '',
     /** 【数据库字段】物料名称 */
-    materialName: "",
+    materialName: '',
     /** 【数据库字段】规格型号 */
-    specification: "",
+    specification: '',
     /** 【数据库字段】计量单位 */
-    unitOfMeasure: "",
+    unitOfMeasure: '',
     /** 【数据库字段】预计使用量（MRP计算量） */
     quantityMrp: 0,
     /** 【数据库字段】是否有回料(0-否 1-是) */
     isReuse: false,
     /** 【数据库字段】备注 */
-    remarks: "",
+    remarks: '',
     /** 【数据库字段】创建人 */
-    creator: "",
+    creator: '',
     /** 【数据库字段】创建时间 */
-    createTime: "",
+    createTime: '',
     /** 【数据库字段】修改人 */
-    modifier: "",
+    modifier: '',
     /** 【数据库字段】修改时间 */
-    modifyTime: "",
+    modifyTime: '',
     /** 批次编号字扫码符串 */
-    batchCodeScanStr: "",
+    batchCodeScanStr: '',
     /** 批次编号字符串 */
-    batchCodeStr: "",
+    batchCodeStr: '',
     /** 批次编号数组 */
     batchCodeArray: [],
     /** 物料入库单明细 */
     materialReceiptRows: [
       {
         /** 【数据库字段】行主键ID */
-        rowId: "",
+        rowId: '',
         /** 【数据库字段】入库单ID */
-        receiptId: "",
+        receiptId: '',
         /** 【数据库字段】采购订单明细ID */
-        poRowId: "",
+        poRowId: '',
         /** 【数据库字段】采购订单ID */
-        poId: "",
+        poId: '',
         /** 【数据库字段】采购订单编号 */
-        poCode: "",
+        poCode: '',
         /** 【数据库字段】物料ID */
-        materialId: "",
+        materialId: '',
         /** 【数据库字段】物料编码 */
-        materialCode: "",
+        materialCode: '',
         /** 【数据库字段】物料名称 */
-        materialName: "",
+        materialName: '',
         /** 【数据库字段】规格型号 */
-        specification: "",
+        specification: '',
         /** 【数据库字段】单位 */
-        unitOfMeasure: "",
+        unitOfMeasure: '',
         /** 【数据库字段】入库数量 */
         quantityReceipt: 0,
         /** 【数据库字段】出货数量 */
         quantityOutbound: 0,
         /** 【数据库字段】批次编号，可以根据配置的规则，由系统自动生成；也可以手工填写 */
-        batchCode: "",
+        batchCode: '',
         /** 【数据库字段】仓库ID */
-        warehouseId: "",
+        warehouseId: '',
         /** 【数据库字段】仓库编码 */
-        warehouseCode: "",
+        warehouseCode: '',
         /** 【数据库字段】仓库名称 */
-        warehouseName: "",
+        warehouseName: '',
         /** 【数据库字段】库区ID */
-        whsAreaId: "",
+        whsAreaId: '',
         /** 【数据库字段】库区编码 */
-        whsAreaCode: "",
+        whsAreaCode: '',
         /** 【数据库字段】库区名称 */
-        whsAreaName: "",
+        whsAreaName: '',
         /** 【数据库字段】库位ID */
-        whsLocationId: "",
+        whsLocationId: '',
         /** 【数据库字段】库位编码 */
-        whsLocationCode: "",
+        whsLocationCode: '',
         /** 【数据库字段】库位名称 */
-        whsLocationName: "",
+        whsLocationName: '',
         /** 【数据库字段】有效期 */
-        expireDate: "",
+        expireDate: '',
         /** 【数据库字段】备注 */
-        remarks: "",
+        remarks: '',
         /** 【数据库字段】创建人 */
-        creator: "",
+        creator: '',
         /** 【数据库字段】创建时间 */
-        createTime: "",
+        createTime: '',
         /** 【数据库字段】修改人 */
-        modifier: "",
+        modifier: '',
         /** 【数据库字段】修改时间 */
-        modifyTime: "",
+        modifyTime: '',
         /** 在库数量 */
         quantityOnHand: 0,
         /** 入库单编码 */
-        receiptCode: "",
+        receiptCode: '',
         /** 入库单名称 */
-        receiptName: "",
+        receiptName: '',
         /** 入库日期 */
-        receiptDate: "",
+        receiptDate: '',
         /** 入库类型 1-采购入库 2-客供入库 3-加工入库 9-其它入库 */
         receiptType: 0,
       },
@@ -143,58 +143,58 @@ const formData = ref({
   /** 【数据库字段】领料单主键ID */
   issueId: undefined,
   /** 【数据库字段】领料单编号 */
-  issueCode: "",
+  issueCode: '',
   /** 【数据库字段】领料单名称 */
-  issueName: "",
+  issueName: '',
   /** 【数据库字段】工作站ID */
   workstationId: undefined,
   /** 【数据库字段】工作站编号 */
-  workstationCode: "",
+  workstationCode: '',
   /** 【数据库字段】工作站名称 */
-  workstationName: "",
+  workstationName: '',
   /** 【数据库字段】生产工单ID */
   workOrderId: undefined,
   /** 【数据库字段】生产工单编号 */
-  workOrderCode: "",
+  workOrderCode: '',
   /** 【数据库字段】生产工单名称 */
-  workOrderName: "",
+  workOrderName: '',
   /** 【数据库字段】产品数量（缺省和生产工单中生产数量一致，领料时可调整，此值为调整后数量，产品入库时缺省数量为此值） */
   quantityProduct: 0,
   /** 【数据库字段】生产任务ID */
-  taskId: "",
+  taskId: '',
   /** 【数据库字段】生产任务编码 */
-  taskCode: "",
+  taskCode: '',
   /** 【数据库字段】客户ID */
   clientId: undefined,
   /** 【数据库字段】客户编码 */
-  clientCode: "",
+  clientCode: '',
   /** 【数据库字段】客户名称 */
-  clientName: "",
+  clientName: '',
   /** 【数据库字段】客户简称 */
-  clientNick: "",
+  clientNick: '',
   /** 【数据库字段】领料日期 */
-  issueDate: "",
+  issueDate: '',
   /** 【数据库字段】单据状态 1-草稿 2-已提交 */
   status: 2,
   /** 【数据库字段】物料出库类型 1-领料出库 9-其他出库 */
   materialOutType: 1,
   /** 【数据库字段】备注 */
-  remarks: "",
+  remarks: '',
   /** 【数据库字段】创建人 */
-  creator: "",
+  creator: '',
   /** 【数据库字段】创建时间 */
   createTime: undefined,
   /** 【数据库字段】修改人 */
-  modifier: "",
+  modifier: '',
   /** 【数据库字段】修改时间 */
   modifyTime: undefined,
   /** 提交生产领料单明细 */
   materialIssueRows: [
     {
       /** 物料ID */
-      materialId: "",
+      materialId: '',
       /** 物料入库单明细ID，多个以逗号','分隔 */
-      materialReceiptRowIds: "",
+      materialReceiptRowIds: '',
       /** 领料数量 */
       quantityTotalIssued: 0,
       /** 来自于生产BOM/产品BOM中的 物料isReuse属性 */
@@ -206,16 +206,16 @@ const formData = ref({
 });
 const formRules = ref({
   issueName: [
-    { required: true, message: "生产领料单名称不能为空", trigger: "blur" },
+    { required: true, message: '生产领料单名称不能为空', trigger: 'blur' },
   ],
   issueCode: [
-    { required: true, message: "生产领料单编码不能为空", trigger: "blur" },
+    { required: true, message: '生产领料单编码不能为空', trigger: 'blur' },
   ],
   workOrderId: [
-    { required: true, message: "生产工单不能为空", trigger: "change" },
+    { required: true, message: '生产工单不能为空', trigger: 'change' },
   ],
   issueDate: [
-    { required: true, message: "生产领料日期不能为空", trigger: "change" },
+    { required: true, message: '生产领料日期不能为空', trigger: 'change' },
   ],
 });
 
@@ -234,7 +234,7 @@ function show(_currentTask: any, quantityNum: number, _isBeforehand: boolean) {
   formData.value.clientCode = erweimaData.value.clientCode;
   formData.value.clientName = erweimaData.value.clientName;
   formData.value.clientNick = erweimaData.value.clientNick;
-  formData.value.issueDate = dayjs().format("YYYY-MM-DD");
+  formData.value.issueDate = dayjs().format('YYYY-MM-DD');
   isBeforehand.value = _isBeforehand;
   getDatas();
 }
@@ -242,16 +242,16 @@ defineExpose({ show });
 
 function handleAutoClick() {
   generateCode({
-    ruleCode: "rc_prod_issue",
-    inputChar: "",
+    ruleCode: 'rc_prod_issue',
+    inputChar: '',
   })
     .then(({ data }) => {
-      formData.value.issueCode = data || "";
-      formData.value.issueName = data || "";
+      formData.value.issueCode = data || '';
+      formData.value.issueName = data || '';
     })
     .catch(() => {
-      formData.value.issueCode = "";
-      formData.value.issueName = "";
+      formData.value.issueCode = '';
+      formData.value.issueName = '';
     })
     .finally(() => {});
 }
@@ -286,16 +286,21 @@ function getDatas() {
       tableData.value = [];
       _tableData.forEach((item: any) => {
         list.forEach(
-          (sitem: { materialId: any; processId: any; thresholdMax: any; quantityMrp: any }) => {
+          (sitem: {
+            materialId: any;
+            processId: any;
+            thresholdMax: any;
+            quantityMrp: any;
+          }) => {
             if (
               item.materialId === sitem.materialId &&
               item.processId === sitem.processId
             ) {
-              item.batchCodeStr = "";
-              item.batchCodeScanStr = "";
+              item.batchCodeStr = '';
+              item.batchCodeScanStr = '';
               item.batchCodeArray = [];
               item.thresholdMax = sitem.thresholdMax;
-              item.quantityMrp=sitem.quantityMrp
+              item.quantityMrp = sitem.quantityMrp;
               tableData.value.push(item);
             }
           }
@@ -311,7 +316,7 @@ function getDatas() {
         isReuseDataCopy.isReceipt = true;
         tableData.value.splice(isReuseIndex + 1, 0, isReuseDataCopy);
       }
-      console.log("tableData", tableData.value);
+      console.log('tableData', tableData.value);
       // if (isBeforehand.value) {
       //   lingliaoData.value = res.data.data
       //   const canLingliaoData = lingliaoData.value.filter(i => i.type === true)
@@ -355,13 +360,13 @@ function handleBatchCodeScanChange(
   }
 ) {
   // row.materialReceiptRows
-  if (val !== null && val !== "" && val !== undefined) {
-    const codeArr = val.split(",");
-    let codeStr = "";
+  if (val !== null && val !== '' && val !== undefined) {
+    const codeArr = val.split(',');
+    let codeStr = '';
     if (codeArr !== null && codeArr !== undefined && codeArr.length > 0) {
       codeStr = codeArr[0];
     }
-    if (codeStr !== null && codeStr !== "" && codeStr !== undefined) {
+    if (codeStr !== null && codeStr !== '' && codeStr !== undefined) {
       const materialReceiptRow = row.materialReceiptRows.find(
         (item: { batchCode: string }) => item.batchCode === codeStr
       );
@@ -370,30 +375,30 @@ function handleBatchCodeScanChange(
           (item: any) => item === materialReceiptRow.rowId
         );
         if (batchCode) {
-          ElMessage.warning("该物料批次号已选择,不可重复选择。");
+          ElMessage.warning('该物料批次号已选择,不可重复选择。');
         } else {
           row.batchCodeArray.push(materialReceiptRow.rowId);
-          ElMessage.success("选择该物料批次号成功");
-          row.batchCodeScanStr = "";
+          ElMessage.success('选择该物料批次号成功');
+          row.batchCodeScanStr = '';
           row.batchCodeStr = row.batchCodeArray.join();
-          console.log("111", row.batchCodeStr);
+          console.log('111', row.batchCodeStr);
         }
       } else {
-        ElMessage.warning("该物料批次号不存在");
+        ElMessage.warning('该物料批次号不存在');
       }
     }
   } else {
   }
-  console.log("333", row.batchCodeStr);
+  console.log('333', row.batchCodeStr);
 }
 function handleBatchCodeSelectChange(
   val: any[],
   row: { batchCodeStr: any; materialReceiptRows: any }
 ) {
-  console.log("val---->", val);
-  console.log("row---->", row);
+  console.log('val---->', val);
+  console.log('row---->', row);
   row.batchCodeStr = val.join();
-  console.log("222", row.batchCodeStr);
+  console.log('222', row.batchCodeStr);
   if (row && row.materialReceiptRows) {
     // const total = 0;
     // const isEnough = false;
@@ -437,16 +442,16 @@ function submitForm() {
           item.quantityMrp === undefined
       );
       if (hasQuantityIssuedNull) {
-        ElMessage.warning("存在领料数量为空的数据");
+        ElMessage.warning('存在领料数量为空的数据');
         return;
       }
 
       const hasBatchCodeNull = tableData.value.find(
         (item: { batchCodeStr: string | null }) =>
-          item.batchCodeStr === "" || item.batchCodeStr === null
+          item.batchCodeStr === '' || item.batchCodeStr === null
       );
       if (hasBatchCodeNull) {
-        ElMessage.warning("存在批次号未选的物料，请选择");
+        ElMessage.warning('存在批次号未选的物料，请选择');
         return;
       }
 
@@ -470,13 +475,13 @@ function submitForm() {
           quantityTotalIssued: quantityMrp,
         };
       });
-      console.log("formData.value", formData.value);
+      console.log('formData.value', formData.value);
       addIssueHeader(formData.value)
         .then(({ code, message }) => {
           if (code === 0) {
             ElMessage.success(message);
             dialogVisible.value = false;
-            emits("done");
+            emits('done');
           }
         })
         .finally(() => {
@@ -689,7 +694,7 @@ function submitForm() {
               width="100"
             >
               <template #default="{ row }">
-                {{ row.isReuse ? "是" : "否" }}
+                {{ row.isReuse ? '是' : '否' }}
               </template>
             </el-table-column>
             <el-table-column
@@ -707,7 +712,7 @@ function submitForm() {
                   type="primary"
                   @click="saomaOpen = !saomaOpen"
                 >
-                  {{ saomaOpen ? "扫码" : "选择" }}
+                  {{ saomaOpen ? '扫码' : '选择' }}
                 </el-button>
               </template>
               <template #default="{ row }">

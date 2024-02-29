@@ -1,6 +1,6 @@
-import * as signalR from "@microsoft/signalr";
+import * as signalR from '@microsoft/signalr';
 
-import { getBaseUrl } from "./http";
+import { getBaseUrl } from './http';
 
 export function getSignalr() {
   // withAutomaticReconnect开启重连，默认重连4次，分别时间间隔为：0、2、10和30秒
@@ -17,7 +17,7 @@ export function getSignalr() {
     reconnectTimeArray.push(second * 1000);
   }
   return new signalR.HubConnectionBuilder()
-    .withUrl(getBaseUrl("DOMAIN_BUS") + "/SignalR/Hubs/HomeNotifyHub")
+    .withUrl(getBaseUrl('DOMAIN_BUS') + '/SignalR/Hubs/HomeNotifyHub')
     .withAutomaticReconnect(reconnectTimeArray)
     .configureLogging(signalR.LogLevel.Error)
     .build();

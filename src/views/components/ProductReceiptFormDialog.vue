@@ -1,61 +1,61 @@
 <script setup lang="ts">
-import dayjs from "dayjs";
-import { ref } from "vue";
-import { storeToRefs } from "pinia";
-import { ElMessage } from "element-plus";
+import dayjs from 'dayjs';
+import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { ElMessage } from 'element-plus';
 
-import { useAppStoreHook } from "~/store/modules/app";
+import { useAppStoreHook } from '~/store/modules/app';
 import {
   addProductReceiptHeader,
   getWarehouseTree,
   generateCode,
   getProductDetail,
   exportExcel,
-} from "~/api";
+} from '~/api';
 
-const emits = defineEmits(["done"]);
+const emits = defineEmits(['done']);
 const formRules = {
   receiptName: [
-    { required: true, message: "入库单名称不能为空", trigger: "blur" },
+    { required: true, message: '入库单名称不能为空', trigger: 'blur' },
   ],
   receiptCode: [
-    { required: true, message: "入库单编号不能为空", trigger: "blur" },
+    { required: true, message: '入库单编号不能为空', trigger: 'blur' },
   ],
   workOrderId: [
-    { required: true, message: "生产工单不能为空", trigger: "change" },
+    { required: true, message: '生产工单不能为空', trigger: 'change' },
   ],
 };
 const defaultProps = {
-  value: "value",
-  label: "name",
-  children: "children",
+  value: 'value',
+  label: 'name',
+  children: 'children',
 };
 const { erweimaData } = storeToRefs(useAppStoreHook());
 
 const ruleFormRef = ref();
 const currentTask = ref();
-const showType = ref("add");
+const showType = ref('add');
 const exporting = ref(true);
 const warehouseOptions = ref([]);
 const dialogVisible = ref(false);
 const formData = ref<any>({
   receiptId: undefined, // 入库单主键ID
-  receiptCode: "", // 入库单编码
-  receiptName: "", // 入库单名称
-  workOrderId: "", // 生产工单ID
-  workOrderCode: "", // 生产工单编号
-  workOrderName: "", // 生产工单名称
+  receiptCode: '', // 入库单编码
+  receiptName: '', // 入库单名称
+  workOrderId: '', // 生产工单ID
+  workOrderCode: '', // 生产工单编号
+  workOrderName: '', // 生产工单名称
   receiptType: 1, // 入库类型 1-生产入库 2-退货入库 9-其它入库
-  receiptDate: "", // 入库日期
+  receiptDate: '', // 入库日期
   status: 0, // 单据状态
-  remarks: "", // 备注
+  remarks: '', // 备注
   productReceiptRows: [], // 产品入库单明细
 });
 
 function show(_currentTask: any) {
   getWarehouseNVData();
   formData.value.receiptDate = dayjs(new Date().toISOString()).format(
-    "YYYY-MM-DD HH:mm:ss"
+    'YYYY-MM-DD HH:mm:ss'
   );
   dialogVisible.value = true;
   currentTask.value = _currentTask;
@@ -63,7 +63,7 @@ function show(_currentTask: any) {
   formData.value.workOrderId = erweimaData.value.workOrderId;
   formData.value.workOrderName = erweimaData.value.workOrderName;
   formData.value.workOrderCode = erweimaData.value.workOrderCode;
-  formData.value.receiptDate = dayjs().format("YYYY-MM-DD HH:mm:ss");
+  formData.value.receiptDate = dayjs().format('YYYY-MM-DD HH:mm:ss');
   formData.value.productReceiptRows = [
     {
       rowId: undefined, // 行主键ID
@@ -76,18 +76,18 @@ function show(_currentTask: any) {
       quantityReceipt: _currentTask.quantityProduced, // 入库数量
       quantityPackage: 0, // 出货数量（已装箱数量）
       batchCode: erweimaData.value.workOrderCode, // 批次编号，可以根据配置的规则，由系统自动生成；也可以手工填写
-      warehouseId: "", // 仓库ID
-      warehouseCode: "", // 仓库编码
-      warehouseName: "", // 仓库名称
-      whsAreaId: "", // 库区ID
-      whsAreaCode: "", // 库区编码
-      whsAreaName: "", // 库区名称
-      whsLocationId: "", // 库位ID
-      whsLocationCode: "", // 库位编码
-      whsLocationName: "", // 库位名称
-      producedDate: dayjs(_currentTask.feedbackTime).format("YYYY-MM-DD"), // 生产日期
-      expireDate: "", // 有效期
-      remarks: "", // 备注
+      warehouseId: '', // 仓库ID
+      warehouseCode: '', // 仓库编码
+      warehouseName: '', // 仓库名称
+      whsAreaId: '', // 库区ID
+      whsAreaCode: '', // 库区编码
+      whsAreaName: '', // 库区名称
+      whsLocationId: '', // 库位ID
+      whsLocationCode: '', // 库位编码
+      whsLocationName: '', // 库位名称
+      producedDate: dayjs(_currentTask.feedbackTime).format('YYYY-MM-DD'), // 生产日期
+      expireDate: '', // 有效期
+      remarks: '', // 备注
       warehouseALs: [],
     },
   ];
@@ -101,9 +101,9 @@ function handleQr(row: {
   quantityReceipt: any;
 }) {
   exporting.value = true;
-  const fileName = row.materialName + "-" + row.batchCode + "二维码";
+  const fileName = row.materialName + '-' + row.batchCode + '二维码';
   exportExcel(
-    "/api/MaterialReceiptRow/GenQrCodeForGY?",
+    '/api/MaterialReceiptRow/GenQrCodeForGY?',
     fileName,
     {
       productCode: erweimaData.value.productCode,
@@ -117,16 +117,16 @@ function handleQr(row: {
 }
 function handleAutoClick() {
   generateCode({
-    ruleCode: "rc_prod_recept",
-    inputChar: "",
+    ruleCode: 'rc_prod_recept',
+    inputChar: '',
   })
     .then(({ data }) => {
-      formData.value.receiptCode = data || "";
-      formData.value.receiptName = data || "";
+      formData.value.receiptCode = data || '';
+      formData.value.receiptName = data || '';
     })
     .catch(() => {
-      formData.value.receiptCode = "";
-      formData.value.receiptName = "";
+      formData.value.receiptCode = '';
+      formData.value.receiptName = '';
     })
     .finally(() => {});
 }
@@ -148,25 +148,25 @@ function getProductData() {
       formData.value.productReceiptRows[0].warehouseALs = [
         data.warehouseId,
         data.areaId,
-        "",
+        '',
       ];
     })
     .catch(() => {
-      formData.value.productReceiptRows[0].warehouseId = "";
-      formData.value.productReceiptRows[0].warehouseCode = "";
-      formData.value.productReceiptRows[0].warehouseName = "";
-      formData.value.productReceiptRows[0].whsAreaId = "";
-      formData.value.productReceiptRows[0].whsAreaCode = "";
-      formData.value.productReceiptRows[0].whsAreaName = "";
-      formData.value.productReceiptRows[0].whsLocationId = "";
-      formData.value.productReceiptRows[0].whsLocationCode = "";
-      formData.value.productReceiptRows[0].whsLocationName = "";
-      formData.value.productReceiptRows[0].unitOfMeasure = "";
+      formData.value.productReceiptRows[0].warehouseId = '';
+      formData.value.productReceiptRows[0].warehouseCode = '';
+      formData.value.productReceiptRows[0].warehouseName = '';
+      formData.value.productReceiptRows[0].whsAreaId = '';
+      formData.value.productReceiptRows[0].whsAreaCode = '';
+      formData.value.productReceiptRows[0].whsAreaName = '';
+      formData.value.productReceiptRows[0].whsLocationId = '';
+      formData.value.productReceiptRows[0].whsLocationCode = '';
+      formData.value.productReceiptRows[0].whsLocationName = '';
+      formData.value.productReceiptRows[0].unitOfMeasure = '';
       formData.value.productReceiptRows[0].warehouseALs = [];
     })
     .finally(() => {
       console.log(
-        "formData.value.productReceiptRows[0].warehouseALs",
+        'formData.value.productReceiptRows[0].warehouseALs',
         formData.value.productReceiptRows[0].warehouseALs
       );
     });
@@ -185,7 +185,7 @@ function getWarehouseNVData() {
     })
     .finally(() => {
       // rebuildTree(warehouseOptions.value)
-      console.log("warehouseOptions.value", warehouseOptions.value);
+      console.log('warehouseOptions.value', warehouseOptions.value);
     });
 }
 function rebuildTree(warehouseOptions: any[]) {
@@ -217,7 +217,7 @@ function handleChange(
       (item: { value: any; code: null; name: any; children: any[] | null }) => {
         if (item.value === val[0]) {
           row.warehouseId = item.value;
-          row.warehouseCode = item.code == null ? "" : item.code;
+          row.warehouseCode = item.code == null ? '' : item.code;
           row.warehouseName = item.name;
         }
         if (item.children != null && item.children.length > 0) {
@@ -250,15 +250,15 @@ function handleChange(
       }
     );
   } else {
-    row.warehouseId = "";
-    row.warehouseCode = "";
-    row.warehouseName = "";
-    row.whsAreaId = "";
-    row.whsAreaCode = "";
-    row.whsAreaName = "";
-    row.whsLocationId = "";
-    row.whsLocationCode = "";
-    row.whsLocationName = "";
+    row.warehouseId = '';
+    row.warehouseCode = '';
+    row.warehouseName = '';
+    row.whsAreaId = '';
+    row.whsAreaCode = '';
+    row.whsAreaName = '';
+    row.whsLocationId = '';
+    row.whsLocationCode = '';
+    row.whsLocationName = '';
   }
 }
 function submitForm(this: any) {
@@ -283,7 +283,7 @@ function submitForm(this: any) {
             ElMessage.success(message);
             dialogVisible.value = false;
             resetForm();
-            emits("done");
+            emits('done');
           }
         })
         .finally(() => {});
@@ -465,9 +465,9 @@ function resetForm(this: any) {
                   </el-cascader>
                   <span v-else
                     >{{ row.warehouseName }}/{{
-                      row.whsAreaName == "" ? "-" : row.whsAreaName
+                      row.whsAreaName == '' ? '-' : row.whsAreaName
                     }}/{{
-                      row.whsLocationName == "" ? "-" : row.whsLocationName
+                      row.whsLocationName == '' ? '-' : row.whsLocationName
                     }}</span
                   >
                 </template>
@@ -497,9 +497,9 @@ function resetForm(this: any) {
                     placeholder="有效期"
                   />
                   <span v-else>{{
-                    row.expireDate != ""
-                      ? dayjs(row.expireDate).format("YYYY-MM-dd")
-                      : ""
+                    row.expireDate != ''
+                      ? dayjs(row.expireDate).format('YYYY-MM-dd')
+                      : ''
                   }}</span>
                 </template>
               </el-table-column>

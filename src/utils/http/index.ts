@@ -178,9 +178,9 @@ class PureHttp {
         // return data
         if (
           ($config.url &&
-            ($config.url?.indexOf("/Export") > -1 ||
-              $config.url?.indexOf("/Template") > -1)) ||
-          $config.responseType == "blob"
+            ($config.url?.indexOf('/Export') > -1 ||
+              $config.url?.indexOf('/Template') > -1)) ||
+          $config.responseType == 'blob'
         ) {
           return response;
         } else {

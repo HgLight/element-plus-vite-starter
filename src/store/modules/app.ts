@@ -3,14 +3,13 @@ import { appType } from './types';
 import { defineStore } from 'pinia';
 import { getFlowCard, getWorkOrderBomList } from '../../api';
 
-
 export const useAppStore = defineStore({
   id: 'pure-app',
   state: (): appType => ({
-    homeName: "首页",
+    homeName: '首页',
     oldWorkTask: null,
-    workOrderCode: "",
-    activeName: "",
+    workOrderCode: '',
+    activeName: '',
     erweimaData: {},
     bomTableData: [],
   }),
@@ -27,61 +26,61 @@ export const useAppStore = defineStore({
             : []
         )
       );
-      console.log("workTaskFeedbacks");
+      console.log('workTaskFeedbacks');
       return _workTaskFeedbacks.map((item: any) => {
         item.startTime =
-          item.startTime === "1900-01-01 00:00:00" ||
-          item.startTime === "0001-01-01 00:00:00"
-            ? ""
+          item.startTime === '1900-01-01 00:00:00' ||
+          item.startTime === '0001-01-01 00:00:00'
+            ? ''
             : item.startTime;
         item.endTime =
-          item.endTime === "1900-01-01 00:00:00" ||
-          item.endTime === "0001-01-01 00:00:00"
-            ? ""
+          item.endTime === '1900-01-01 00:00:00' ||
+          item.endTime === '0001-01-01 00:00:00'
+            ? ''
             : item.endTime;
         item.feedbackTime =
-          item.feedbackTime === "1900-01-01 00:00:00" ||
-          item.feedbackTime === "0001-01-01 00:00:00"
-            ? ""
+          item.feedbackTime === '1900-01-01 00:00:00' ||
+          item.feedbackTime === '0001-01-01 00:00:00'
+            ? ''
             : item.feedbackTime;
         item.userId =
-          item.userId === "00000000-0000-0000-0000-000000000000"
-            ? ""
+          item.userId === '00000000-0000-0000-0000-000000000000'
+            ? ''
             : item.userId;
         item.mouldId =
-          item.mouldId === "00000000-0000-0000-0000-000000000000"
-            ? ""
+          item.mouldId === '00000000-0000-0000-0000-000000000000'
+            ? ''
             : item.mouldId;
         item.machineryId =
-          item.machineryId === "00000000-0000-0000-0000-000000000000"
-            ? ""
+          item.machineryId === '00000000-0000-0000-0000-000000000000'
+            ? ''
             : item.machineryId;
         item.workstationId =
-          item.workstationId === "00000000-0000-0000-0000-000000000000"
-            ? ""
+          item.workstationId === '00000000-0000-0000-0000-000000000000'
+            ? ''
             : item.workstationId;
         return item;
       });
     },
     // 进行中的工作任务
     afootWorkTask(state): any {
-      console.log("afootWorkTask");
+      console.log('afootWorkTask');
       return this.workTaskFeedbacks.find((item: any) => item.status === 2);
     },
     // 未开始的工作任务
     waitingWorkTask(state): any {
-      console.log("waitingWorkTask");
+      console.log('waitingWorkTask');
       return this.workTaskFeedbacks.find((item: any) => item.status === 1);
     },
     // 最后一个工作任务
     lastWorkTask(state): any {
-      console.log("lastWorkTask");
+      console.log('lastWorkTask');
       return this.workTaskFeedbacks[this.workTaskFeedbacks.length - 1];
     },
     // 当前需要执行的工作任务
     currentWorkTask(state): any {
-      console.log("currentWorkTask");
-      if (state.activeName === "") {
+      console.log('currentWorkTask');
+      if (state.activeName === '') {
         const tempCurrentWorkTask =
           this.afootWorkTask !== undefined
             ? this.afootWorkTask
@@ -123,7 +122,7 @@ export const useAppStore = defineStore({
     },
     // 当前需要执行的工作任务的前一道工序
     previousTask(state): any {
-      console.log("previousTask");
+      console.log('previousTask');
       const currentTaskIndex = this.workTaskFeedbacks.findIndex(
         i => i.taskId === this.currentWorkTask.taskId
       );
@@ -149,7 +148,7 @@ export const useAppStore = defineStore({
         })
           .then(({ data }) => {
             const _erweimaData = data;
-            this.activeName = "";
+            this.activeName = '';
             this.erweimaData = _erweimaData;
             this.loadBom(_erweimaData.workOrderId);
             resolve(_erweimaData);

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { storeToRefs } from "pinia";
-import { ref, watch, nextTick } from "vue";
+import { storeToRefs } from 'pinia';
+import { ref, watch, nextTick } from 'vue';
 
-import md5 from "~/utils/md5";
-import { postLogin, saveWorkFeedback } from "~/api";
-import { useAppStoreHook } from "~/store/modules/app";
+import md5 from '~/utils/md5';
+import { postLogin, saveWorkFeedback } from '~/api';
+import { useAppStoreHook } from '~/store/modules/app';
 
 const props = defineProps({
   quantityQualifiedDeviation: {
@@ -13,7 +13,7 @@ const props = defineProps({
     default: 0,
   },
 });
-const emits = defineEmits(["done"]);
+const emits = defineEmits(['done']);
 const { erweimaData } = storeToRefs(useAppStoreHook());
 
 const formRef = ref();
@@ -22,30 +22,30 @@ const userInfo = ref<any>();
 const workTask = ref<any>({});
 const dialogVisible = ref(false);
 const formData = ref({
-  loginName: "", // 解锁账号
-  password: "", // 解锁密码
-  Remark: "", // 解锁原因
+  loginName: '', // 解锁账号
+  password: '', // 解锁密码
+  Remark: '', // 解锁原因
   ccSl: 0, // 产出数量
 });
 const formRules = ref({
   loginName: [
-    { required: true, message: "请输入账号", trigger: "blur" },
+    { required: true, message: '请输入账号', trigger: 'blur' },
     {
-      trigger: "blur",
+      trigger: 'blur',
       validator: loginNameValidator,
     },
   ],
   password: [
-    { required: true, message: "请输入密码", trigger: "blur" },
+    { required: true, message: '请输入密码', trigger: 'blur' },
     {
-      trigger: "blur",
+      trigger: 'blur',
       validator: passwordValidator,
     },
   ],
-  Remark: [{ required: true, message: "请输入备注", trigger: "blur" }],
+  Remark: [{ required: true, message: '请输入备注', trigger: 'blur' }],
   ccSl: [
     {
-      trigger: "blur",
+      trigger: 'blur',
       validator: ccSlValidator,
     },
   ],
@@ -73,7 +73,7 @@ function loginNameValidator(
   value: any,
   callback: (arg0?: Error | undefined) => void
 ) {
-  if (formData.value.password !== "") {
+  if (formData.value.password !== '') {
     loginByUsername()
       .then(({ code, message }) => {
         if (code === 0) {
@@ -83,7 +83,7 @@ function loginNameValidator(
         }
       })
       .catch(() => {
-        callback(new Error("账号或密码错误"));
+        callback(new Error('账号或密码错误'));
       });
   } else {
     callback();
@@ -94,13 +94,13 @@ function passwordValidator(
   value: any,
   callback: (arg0?: Error | undefined) => void
 ) {
-  if (formData.value.loginName !== "") {
+  if (formData.value.loginName !== '') {
     loginByUsername()
       .then(({ code, message }) => {
         if (code === 0) {
           setTimeout(() => {
             nextTick(() => {
-              formRef.value.validateField("loginName", (err: any) => {
+              formRef.value.validateField('loginName', (err: any) => {
                 console.log(err);
                 callback();
               });
@@ -111,7 +111,7 @@ function passwordValidator(
         }
       })
       .catch(() => {
-        callback(new Error("账号或密码错误"));
+        callback(new Error('账号或密码错误'));
       });
   } else {
     callback();
@@ -122,10 +122,10 @@ function ccSlValidator(
   value: any,
   callback: (arg0?: Error | undefined) => void
 ) {
-  if (value === "") {
-    callback(new Error("请输入产出数量"));
+  if (value === '') {
+    callback(new Error('请输入产出数量'));
   } else if (value <= 0) {
-    callback(new Error("产出数量不能小于等于0!"));
+    callback(new Error('产出数量不能小于等于0!'));
   } else if (
     (Math.abs(value - workTask.value.quantity) / workTask.value.quantity) *
       100 <=
@@ -145,7 +145,7 @@ function loginByUsername() {
       password: md5(formData.value.loginName, formData.value.password),
     })
       .then(data => {
-        console.log("data", data);
+        console.log('data', data);
         userInfo.value = data.data;
         resolve(data);
       })
@@ -165,10 +165,10 @@ function submitForm() {
         ...val,
         feedbackId: undefined, // 记录主键ID
         feedbackType: 1, // 报工类型 1-自行报工 2-统一报工
-        feedbackTypeName: "自行报工", // 报工类型 1-自行报工 2-统一报工
+        feedbackTypeName: '自行报工', // 报工类型 1-自行报工 2-统一报工
         workstationId: val.workstationId
           ? val.workstationId
-          : "00000000-0000-0000-0000-000000000000", // 工作站ID
+          : '00000000-0000-0000-0000-000000000000', // 工作站ID
         workstationCode: val.workstationCode, // 工作站编码
         workstationName: val.workstationName, // 工作站名称
         workshopId: val.workshopId, // 车间ID
@@ -176,7 +176,7 @@ function submitForm() {
         workshopName: val.workshopName, // 车间名称
         machineryId: val.machineryId
           ? val.machineryId
-          : "00000000-0000-0000-0000-000000000000", // 设备ID
+          : '00000000-0000-0000-0000-000000000000', // 设备ID
         machineryCode: val.machineryCode, // 设备编码
         machineryName: val.machineryName, // 设备名称
         mouldId: val.mouldId, // 模具ID
@@ -192,7 +192,7 @@ function submitForm() {
         productCode: erweimaData.value.productName, // 产品编码
         productName: erweimaData.value.productId, // productCode
         specification: erweimaData.value.specification, // 规格型号
-        unitOfMeasure: "", // 计量单位
+        unitOfMeasure: '', // 计量单位
         quantityTask: val.quantityTask, // 排产数量/投入数量
         quantityFeedback: val.quantity, // 本次报工数量(合格数量+不合格数量)
         quantityQualified: formData.value.ccSl, // 合格数量/产出数量
@@ -201,13 +201,13 @@ function submitForm() {
         userName: val.userName, // 报工人员账号
         staffName: val.staffName, // 报工人员姓名
         feedbackChannel: 1, // 报工途径 1-PAD 2-手机 3-电脑
-        feedbackChannelName: "PAD", // 报工途径 1-PAD 2-手机 3-电脑
+        feedbackChannelName: 'PAD', // 报工途径 1-PAD 2-手机 3-电脑
         feedbackTime: undefined, // 报工时间
         recordUserId: undefined, // 录入人员Id
-        recordUserName: "", // 录入人员账号
-        recordStaffName: "", // 录入人员姓名
+        recordUserName: '', // 录入人员账号
+        recordStaffName: '', // 录入人员姓名
         status: val.status, // 状态 1-草稿 2-已提交
-        remarks: "", // 备注
+        remarks: '', // 备注
         unlockUserId: userInfo.value.userId, // 解锁人ID
         unlockStaffName: userInfo.value.staffName, // 解锁人姓名
         unlockReason: formData.value.Remark, // 解锁原因
@@ -216,7 +216,7 @@ function submitForm() {
         //   xianxingClick(erweimaData.value)
         // } else {
         if (code === 0) {
-          emits("done", workTask.value);
+          emits('done', workTask.value);
           formRef.value.resetFields();
           dialogVisible.value = false;
         }

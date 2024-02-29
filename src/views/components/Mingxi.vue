@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import { storeToRefs } from "pinia";
-import { ElMessageBox, ElMessage } from "element-plus";
+import { ref, watch } from 'vue';
+import { storeToRefs } from 'pinia';
+import { ElMessageBox, ElMessage } from 'element-plus';
 
 import {
   exportExcel,
@@ -10,15 +10,15 @@ import {
   saveWorkFeedback,
   deleteWorkFeedbackDefect,
   getWorkFeedbackDefectListByTaskId,
-} from "~/api";
-import ReCol24 from "./ReCol24.vue";
-import WorkTaskForm from "./WorkTaskForm.vue";
-import DefectFormDialog from "./DefectFormDialog.vue";
-import CheckReportTable from "./CheckReportTable.vue";
-import { useAppStoreHook } from "../../store/modules/app";
-import WorkOrderDescriptionsCard from "./WorkOrderDescriptionsCard.vue";
+} from '~/api';
+import ReCol24 from './ReCol24.vue';
+import WorkTaskForm from './WorkTaskForm.vue';
+import DefectFormDialog from './DefectFormDialog.vue';
+import CheckReportTable from './CheckReportTable.vue';
+import { useAppStoreHook } from '../../store/modules/app';
+import WorkOrderDescriptionsCard from './WorkOrderDescriptionsCard.vue';
 
-const emits = defineEmits(["submit", "done"]);
+const emits = defineEmits(['submit', 'done']);
 
 let ws: any = null;
 const {
@@ -38,13 +38,13 @@ const defectDialogRef = ref();
 const isBeforehand = ref(false);
 
 watch(erweimaData, val => {
-  console.log("watch erweimaData", val);
+  console.log('watch erweimaData', val);
   if (currentWorkTask.value.checkStatus !== 1) {
     now.value = new Date().getTime();
   }
 });
 watch(currentWorkTask, val => {
-  console.log("watch currentWorkTask", val);
+  console.log('watch currentWorkTask', val);
   activeName.value = val.taskCode;
 });
 
@@ -64,29 +64,29 @@ function getWorkFeedbackDefectList(taskId: any) {
  * 刷新数据
  */
 function refreshData() {
-  emits("submit");
+  emits('submit');
 }
 /**
  * 初始化WebSocket
  */
 function initSocket() {
-  ws = new WebSocket("ws://127.0.0.1:6500");
+  ws = new WebSocket('ws://127.0.0.1:6500');
   ws.onopen = function (e: any) {
-    console.log("websocket连接成功", e);
+    console.log('websocket连接成功', e);
   };
   ws.onmessage = function (e: any) {
-    console.log("收到数据", e);
+    console.log('收到数据', e);
     refreshData();
     // console.log(e.data)
   };
   ws.onclose = (e: any) => {
-    console.log("websocket已断开", e);
+    console.log('websocket已断开', e);
     setTimeout(() => {
       initSocket();
     }, 5000);
   };
   ws.onerror = function (e: any) {
-    console.log("websocket发生错误", e);
+    console.log('websocket发生错误', e);
   };
 }
 /**
@@ -102,7 +102,7 @@ function handleTabClick(pane: any, ev: Event) {
   if (item.isAddDefect === true) {
     getWorkFeedbackDefectList(item.taskId);
   }
-  console.log("currentWorkTask", currentWorkTask.value);
+  console.log('currentWorkTask', currentWorkTask.value);
 }
 /**
  * 先行回调
@@ -118,10 +118,10 @@ function handleBeforehand(val: boolean) {
  * @param {*} row
  */
 function handleDelete(row: { defectRecordId: any }, workTask: { taskId: any }) {
-  ElMessageBox.confirm("确定删除此数据?", "提示", {
-    confirmButtonText: "确定",
-    cancelButtonText: "取消",
-    type: "warning",
+  ElMessageBox.confirm('确定删除此数据?', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning',
     center: true,
   }).then(() => {
     deleteWorkFeedbackDefect({ id: row.defectRecordId }).then(
@@ -160,7 +160,7 @@ function handleStart(workTask: {
     console.log(bomTableData.value);
     const bomDetail = bomTableData.value
       .map(item => {
-        return item.materialName + " ";
+        return item.materialName + ' ';
       })
       .toString();
     const _erweimaData = JSON.parse(JSON.stringify(erweimaData.value));
@@ -187,7 +187,7 @@ function handleStart(workTask: {
       // } else {
       if (code === 0) {
         ElMessage.success(message);
-        emits("submit");
+        emits('submit');
       }
 
       // }
@@ -208,11 +208,11 @@ function handleEnd(workTask: {
   quantityProduced: number;
 }) {
   if (workTask.checkStatus === 1 && !workTask.quantityQualified) {
-    ElMessage.warning("请输入产出数量");
+    ElMessage.warning('请输入产出数量');
     return;
   }
   if (workTask.checkStatus === 1 && !workTask.userId) {
-    ElMessage.warning("请选择操作人");
+    ElMessage.warning('请选择操作人');
     return;
   }
   const bodyData = { ...workTask };
@@ -228,7 +228,7 @@ function handleEnd(workTask: {
         // } else {
         if (code === 0) {
           ElMessage.success(message);
-          emits("submit");
+          emits('submit');
         }
         // }
       })
@@ -249,10 +249,10 @@ function modify(val: any, isFinish: any) {
       ...val,
       feedbackId: undefined, // 记录主键ID
       feedbackType: 1, // 报工类型 1-自行报工 2-统一报工
-      feedbackTypeName: "自行报工", // 报工类型 1-自行报工 2-统一报工
+      feedbackTypeName: '自行报工', // 报工类型 1-自行报工 2-统一报工
       workstationId: val.workstationId
         ? val.workstationId
-        : "00000000-0000-0000-0000-000000000000", // 工作站ID
+        : '00000000-0000-0000-0000-000000000000', // 工作站ID
       workstationCode: val.workstationCode, // 工作站编码
       workstationName: val.workstationName, // 工作站名称
       workshopId: val.workshopId, // 车间ID
@@ -274,7 +274,7 @@ function modify(val: any, isFinish: any) {
       productCode: erweimaData.value.productName, // 产品编码
       productName: erweimaData.value.productId, // productCode
       specification: erweimaData.value.specification, // 规格型号
-      unitOfMeasure: "", // 计量单位
+      unitOfMeasure: '', // 计量单位
       quantityTask: val.quantityTask, // 排产数量/投入数量
       quantityFeedback: val.quantity, // 本次报工数量(合格数量+不合格数量)
       quantityQualified: val.quantityTask, // 合格数量/产出数量
@@ -283,13 +283,13 @@ function modify(val: any, isFinish: any) {
       userName: val.userName, // 报工人员账号
       staffName: val.staffName, // 报工人员姓名
       feedbackChannel: 1, // 报工途径 1-PAD 2-手机 3-电脑
-      feedbackChannelName: "PAD", // 报工途径 1-PAD 2-手机 3-电脑
+      feedbackChannelName: 'PAD', // 报工途径 1-PAD 2-手机 3-电脑
       feedbackTime: undefined, // 报工时间
       recordUserId: undefined, // 录入人员Id
-      recordUserName: "", // 录入人员账号
-      recordStaffName: "", // 录入人员姓名
+      recordUserName: '', // 录入人员账号
+      recordStaffName: '', // 录入人员姓名
       status: val.status, // 状态 1-草稿 2-已提交
-      remarks: "", // 备注
+      remarks: '', // 备注
       unlockUserId: val.unlockUserId, // 解锁人ID
       unlockStaffName: val.unlockStaffName, // 解锁人姓名
       unlockReason: val.unlockReason, // 解锁原因
@@ -299,7 +299,7 @@ function modify(val: any, isFinish: any) {
         // } else {
         if (code === 0) {
           if (!isFinish) {
-            emits("done");
+            emits('done');
           }
           resolve(code);
         }
@@ -314,12 +314,12 @@ function modify(val: any, isFinish: any) {
 function handleExport() {
   exporting.value = true;
   exportExcel(
-    "/api/CheckReportHeader/ExportAhead?",
-    "首件检验记录",
+    '/api/CheckReportHeader/ExportAhead?',
+    '首件检验记录',
     {
       workOrderCode: erweimaData.value.workOrderCode,
     },
-    ""
+    ''
   ).finally(() => {
     exporting.value = false;
   });
@@ -329,7 +329,7 @@ function handleExport() {
 initSocket();
 
 activeName.value = currentWorkTask.value.taskCode;
-console.log("currentWorkTask", currentWorkTask.value);
+console.log('currentWorkTask', currentWorkTask.value);
 
 if (currentWorkTask.value?.issueStatus === 2) {
   quantityNum.value = erweimaData.value.workOrderQuantity;
@@ -438,7 +438,7 @@ if (currentWorkTask.value?.isAddDefect === true) {
                 <el-collapse-item name="1">
                   <template #title>
                     <div class="collapse-item-title">
-                      {{ workTask.status == 2 ? "添加不良品" : "不良品" }}
+                      {{ workTask.status == 2 ? '添加不良品' : '不良品' }}
                       <el-button
                         v-if="workTask.status == 2 || workTask.status == 3"
                         type="primary"

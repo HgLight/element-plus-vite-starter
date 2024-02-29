@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { storeToRefs } from "pinia";
-import { ref, onMounted, watch } from "vue";
-import { getCheckReportPages } from "~/api";
+import { storeToRefs } from 'pinia';
+import { ref, onMounted, watch } from 'vue';
+import { getCheckReportPages } from '~/api';
 
-import { useAppStoreHook } from "~/store/modules/app";
+import { useAppStoreHook } from '~/store/modules/app';
 
 const props = defineProps({
   currentTask: {
@@ -69,10 +69,10 @@ function getData() {
           },
           index: string
         ) => {
-          item["checkName" + index] = element.checkName;
-          item["resultValueStr" + index] = element.resultValueStr;
-          item["isRed" + index] =
-            element.resultValueStr !== "OK" &&
+          item['checkName' + index] = element.checkName;
+          item['resultValueStr' + index] = element.resultValueStr;
+          item['isRed' + index] =
+            element.resultValueStr !== 'OK' &&
             element.hasValue &&
             (element.resultValue > element.thresholdMax ||
               element.resultValue < element.thresholdMin);
@@ -174,7 +174,7 @@ onMounted(() => {
       >
         <template #default="{ row }">
           <span :style="{ color: row['isRed' + index] ? 'red' : '' }">
-            {{ row["resultValueStr" + index] }}
+            {{ row['resultValueStr' + index] }}
           </span>
         </template>
       </el-table-column>

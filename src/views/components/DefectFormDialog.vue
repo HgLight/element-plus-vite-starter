@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { ref, nextTick } from "vue";
-import { ElMessage } from "element-plus";
+import { ref, nextTick } from 'vue';
+import { ElMessage } from 'element-plus';
 
-import { addWorkFeedbackDefect, getDefectListNv } from "~/api";
+import { addWorkFeedbackDefect, getDefectListNv } from '~/api';
 
-const emits = defineEmits(["done"]);
+const emits = defineEmits(['done']);
 const formRules = {
-  defectId: [{ required: true, message: "请选择不良品", trigger: "change" }],
+  defectId: [{ required: true, message: '请选择不良品', trigger: 'change' }],
   quantityUnqualified: [
-    { required: true, trigger: "blur", message: "请输入数量" },
+    { required: true, trigger: 'blur', message: '请输入数量' },
     {
-      trigger: "blur",
+      trigger: 'blur',
       validator: (
         rule: any,
         value: string | number,
         callback: (arg0?: Error | undefined) => void
       ) => {
-        if (value === "") {
-          callback(new Error("请输入数量"));
+        if (value === '') {
+          callback(new Error('请输入数量'));
         } else if (value === 0) {
-          callback(new Error("数量不能为0!"));
+          callback(new Error('数量不能为0!'));
         } else {
           callback();
         }
@@ -36,10 +36,10 @@ const formData = ref({
   feedbackId: undefined,
   taskId: undefined,
   defectId: undefined,
-  defectCode: "",
-  defectName: "",
+  defectCode: '',
+  defectName: '',
   quantityUnqualified: 0,
-  remarks: "",
+  remarks: '',
 });
 
 function show(workTask: { taskId: undefined }, productLineType: any) {
@@ -52,7 +52,7 @@ function show(workTask: { taskId: undefined }, productLineType: any) {
 defineExpose({ show });
 
 function getDefectList(productLineType: any) {
-  getDefectListNv({ sysOwnerCpy: "", state: "正常", productLineType }).then(
+  getDefectListNv({ sysOwnerCpy: '', state: '正常', productLineType }).then(
     res => {
       defectList.value = res.data;
     }
@@ -69,7 +69,7 @@ function submitForm() {
       addWorkFeedbackDefect(formData.value).then(({ code, message }) => {
         if (code === 0) {
           ElMessage.success(message);
-          emits("done", formData.value.taskId);
+          emits('done', formData.value.taskId);
           dialogVisible.value = false;
           resetForm();
         }
