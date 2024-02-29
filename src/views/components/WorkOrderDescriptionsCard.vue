@@ -16,8 +16,8 @@ function handleBeforehand() {
 </script>
 
 <template>
-  <el-card shadow="always">
-    <el-descriptions class="margin-top" title="工单生产" :column="3" border>
+  <el-card shadow="never">
+    <el-descriptions title="工单生产" :column="3" border>
       <!-- <template #extra>
         <template v-if="erweimaData.isAntecede === true">
           <el-button

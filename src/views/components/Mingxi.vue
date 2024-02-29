@@ -349,6 +349,7 @@ if (currentWorkTask.value?.isAddDefect === true) {
       v-model="activeName"
       style="margin-top: 20px"
       type="border-card"
+      class="mt-5 mx-5"
       @tab-click="handleTabClick"
     >
       <el-tab-pane
