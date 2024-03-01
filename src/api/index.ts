@@ -262,7 +262,7 @@ export function getMachineryList(params: object) {
 export function getMouldList(params: object) {
   return http.request<any>(
     'get',
-    getBaseUrl('DOMAIN_BUS') + '/api/'+getConfig('MouldApi')+'/GetListNv',
+    getBaseUrl('DOMAIN_BUS') + '/api/' + getConfig('MouldApi') + '/GetListNv',
     {
       params,
     }
