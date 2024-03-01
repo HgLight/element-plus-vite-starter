@@ -13,15 +13,20 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
+import {
+  root,
+  alias,
+  pathResolve,
+  __APP_INFO__
+} from "./build/utils";
 
 const pathSrc = path.resolve(__dirname, 'src')
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  root,
   resolve: {
-    alias: {
-      '~/': `${pathSrc}/`,
-    },
+    alias
   },
   css: {
     preprocessorOptions: {
@@ -62,4 +67,26 @@ export default defineConfig({
       ]
     }),
   ],
+  build: {
+    // https://cn.vitejs.dev/guide/build.html#browser-compatibility
+    target: "es2015",
+    sourcemap: false,
+    // 消除打包大小超过500kb警告
+    chunkSizeWarningLimit: 4000,
+    rollupOptions: {
+      input: {
+        index: pathResolve("./index.html", import.meta.url)
+      },
+      // 静态资源分类打包
+      output: {
+        chunkFileNames: "static/js/[name]-[hash].js",
+        entryFileNames: "static/js/[name]-[hash].js",
+        assetFileNames: "static/[ext]/[name]-[hash].[ext]"
+      }
+    }
+  },
+  define: {
+    __INTLIFY_PROD_DEVTOOLS__: false,
+    __APP_INFO__: JSON.stringify(__APP_INFO__)
+  }
 })
