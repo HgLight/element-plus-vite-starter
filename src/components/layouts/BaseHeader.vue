@@ -5,6 +5,8 @@ import { useFullscreen, useNow, useDateFormat } from '@vueuse/core';
 import { toggleDark } from '~/composables';
 import { useAppStoreHook } from '~/store/modules/app';
 
+const { version } = __APP_INFO__.pkg;
+
 const formattedNow = useDateFormat(useNow(), 'YYYY-MM-DD HH:mm:ss');
 const { toggle, isFullscreen } = useFullscreen();
 const { workOrderCode } = storeToRefs(useAppStoreHook());
@@ -13,7 +15,7 @@ const { workOrderCode } = storeToRefs(useAppStoreHook());
 <template>
   <div class="flex">
     <span class="h-[59px] flex items-center pl-5"
-      >生产工艺流转（{{ workOrderCode }}）</span
+      >生产工艺流转<span>V{{ version }}</span>（{{ workOrderCode }}）</span
     >
     <div class="flex-1">
       <el-menu v-if="false" class="el-menu-demo flex-1" mode="horizontal">
