@@ -17,7 +17,7 @@ import { defineComponent } from 'vue';
 import en from 'element-plus/dist/locale/en.mjs';
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 
-import { getTime } from './api/home';
+import { getTime } from '~/api';
 
 export default defineComponent({
   name: 'App',
