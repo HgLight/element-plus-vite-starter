@@ -1,7 +1,7 @@
 {
   "name": "element-plus-vite-starter",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -17,6 +17,7 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.1.7",
     "qs": "^6.11.2",
+    "version-rocket": "^1.7.1",
     "vue": "^3.4.20",
     "vue-router": "^4.3.0"
   },
