@@ -15,7 +15,8 @@ const { workOrderCode } = storeToRefs(useAppStoreHook());
 <template>
   <div class="flex">
     <span class="h-[59px] flex items-center pl-5"
-      >生产工艺流转<span>V{{ version }}</span>（{{ workOrderCode }}）</span
+      >生产工艺流转<span>-V{{ version }}</span
+      >（{{ workOrderCode }}）</span
     >
     <div class="flex-1">
       <el-menu v-if="false" class="el-menu-demo flex-1" mode="horizontal">
