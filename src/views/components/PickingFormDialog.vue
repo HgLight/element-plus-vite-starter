@@ -679,7 +679,7 @@ function submitForm() {
                   :max="row.thresholdMax ? Infinity : Infinity"
                   :controls="false"
                   :min="0"
-                  :disabled="!row.isReceipt"
+                  :disabled="false"
                   value-on-clear="min"
                   style="width: 100%"
                   class="quantity-issued-input"
