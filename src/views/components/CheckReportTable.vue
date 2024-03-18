@@ -181,4 +181,3 @@ onMounted(() => {
     </template>
   </el-table>
 </template>
-~/api

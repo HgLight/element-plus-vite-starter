@@ -314,6 +314,3 @@ function handleClose() {
     </template>
   </el-dialog>
 </template>
-
-<style scoped></style>
-~/api
