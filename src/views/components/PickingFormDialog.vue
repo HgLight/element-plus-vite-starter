@@ -4,13 +4,14 @@ import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { ElMessage } from 'element-plus';
 
-import { useAppStoreHook } from '~/store/modules/app';
 import {
   addIssueHeader,
   getWorkstationListNv,
   generateCode,
   getWorkOrderBomTempList,
 } from '~/api';
+import { useAppStoreHook } from '~/store/modules/app';
+import type { BOMItem, PickingFormData } from './PickingTypes';
 
 const props = defineProps({
   workTask: {
@@ -26,120 +27,11 @@ const ruleFormRef = ref();
 const loading = ref(false);
 const saomaOpen = ref(true);
 const dialogVisible = ref(false);
-const currentTask = ref<any>({});
 const isBeforehand = ref(false);
 // const lingliaoData=ref( [])
 const workStations = ref<Array<any>>([]);
-const tableData = ref<any>([
-  {
-    /** 【数据库字段】行主键ID */
-    rowId: '',
-    /** 【数据库字段】工单ID */
-    workOrderId: '',
-    /** 【数据库字段】物料ID */
-    materialId: '',
-    /** 【数据库字段】物料编码 */
-    materialCode: '',
-    /** 【数据库字段】物料名称 */
-    materialName: '',
-    /** 【数据库字段】规格型号 */
-    specification: '',
-    /** 【数据库字段】计量单位 */
-    unitOfMeasure: '',
-    /** 【数据库字段】预计使用量（MRP计算量） */
-    quantityMrp: 0,
-    /** 【数据库字段】是否有回料(0-否 1-是) */
-    isReuse: false,
-    /** 【数据库字段】备注 */
-    remarks: '',
-    /** 【数据库字段】创建人 */
-    creator: '',
-    /** 【数据库字段】创建时间 */
-    createTime: '',
-    /** 【数据库字段】修改人 */
-    modifier: '',
-    /** 【数据库字段】修改时间 */
-    modifyTime: '',
-    /** 批次编号字扫码符串 */
-    batchCodeScanStr: '',
-    /** 批次编号字符串 */
-    batchCodeStr: '',
-    /** 批次编号数组 */
-    batchCodeArray: [],
-    /** 物料入库单明细 */
-    materialReceiptRows: [
-      {
-        /** 【数据库字段】行主键ID */
-        rowId: '',
-        /** 【数据库字段】入库单ID */
-        receiptId: '',
-        /** 【数据库字段】采购订单明细ID */
-        poRowId: '',
-        /** 【数据库字段】采购订单ID */
-        poId: '',
-        /** 【数据库字段】采购订单编号 */
-        poCode: '',
-        /** 【数据库字段】物料ID */
-        materialId: '',
-        /** 【数据库字段】物料编码 */
-        materialCode: '',
-        /** 【数据库字段】物料名称 */
-        materialName: '',
-        /** 【数据库字段】规格型号 */
-        specification: '',
-        /** 【数据库字段】单位 */
-        unitOfMeasure: '',
-        /** 【数据库字段】入库数量 */
-        quantityReceipt: 0,
-        /** 【数据库字段】出货数量 */
-        quantityOutbound: 0,
-        /** 【数据库字段】批次编号，可以根据配置的规则，由系统自动生成；也可以手工填写 */
-        batchCode: '',
-        /** 【数据库字段】仓库ID */
-        warehouseId: '',
-        /** 【数据库字段】仓库编码 */
-        warehouseCode: '',
-        /** 【数据库字段】仓库名称 */
-        warehouseName: '',
-        /** 【数据库字段】库区ID */
-        whsAreaId: '',
-        /** 【数据库字段】库区编码 */
-        whsAreaCode: '',
-        /** 【数据库字段】库区名称 */
-        whsAreaName: '',
-        /** 【数据库字段】库位ID */
-        whsLocationId: '',
-        /** 【数据库字段】库位编码 */
-        whsLocationCode: '',
-        /** 【数据库字段】库位名称 */
-        whsLocationName: '',
-        /** 【数据库字段】有效期 */
-        expireDate: '',
-        /** 【数据库字段】备注 */
-        remarks: '',
-        /** 【数据库字段】创建人 */
-        creator: '',
-        /** 【数据库字段】创建时间 */
-        createTime: '',
-        /** 【数据库字段】修改人 */
-        modifier: '',
-        /** 【数据库字段】修改时间 */
-        modifyTime: '',
-        /** 在库数量 */
-        quantityOnHand: 0,
-        /** 入库单编码 */
-        receiptCode: '',
-        /** 入库单名称 */
-        receiptName: '',
-        /** 入库日期 */
-        receiptDate: '',
-        /** 入库类型 1-采购入库 2-客供入库 3-加工入库 9-其它入库 */
-        receiptType: 0,
-      },
-    ],
-  },
-]);
-const formData = ref({
+const tableData = ref<Array<BOMItem>>([]);
+const formData = ref<PickingFormData>({
   /** 【数据库字段】领料单主键ID */
   issueId: undefined,
   /** 【数据库字段】领料单编号 */
@@ -220,10 +112,9 @@ const formRules = ref({
 });
 
 function show(_currentTask: any, quantityNum: number, _isBeforehand: boolean) {
+  getIssueCode();
   getWorkStationData();
   dialogVisible.value = true;
-  currentTask.value = _currentTask;
-  handleAutoClick();
   formData.value.workOrderId = erweimaData.value.workOrderId;
   formData.value.workOrderName = erweimaData.value.workOrderName;
   formData.value.workOrderCode = erweimaData.value.workOrderCode;
@@ -240,7 +131,7 @@ function show(_currentTask: any, quantityNum: number, _isBeforehand: boolean) {
 }
 defineExpose({ show });
 
-function handleAutoClick() {
+function getIssueCode() {
   generateCode({
     ruleCode: 'rc_prod_issue',
     inputChar: '',
@@ -280,8 +171,8 @@ function getDatas() {
     processId: props.workTask.processId,
     workOrderQty: formData.value.quantityProduct,
   })
-    .then(res => {
-      const list = res.data;
+    .then(({ data }) => {
+      const list = data || [];
       const _tableData = JSON.parse(JSON.stringify(bomTableData.value));
       tableData.value = [];
       _tableData.forEach((item: any) => {
@@ -306,15 +197,16 @@ function getDatas() {
           }
         );
       });
+      //再生料下标
       const isReuseIndex = tableData.value.findIndex(
         (item: { isReuse: any }) => item.isReuse
       );
       if (isReuseIndex !== -1) {
-        const isReuseDataCopy = JSON.parse(
+        const reuseData = JSON.parse(
           JSON.stringify(tableData.value[isReuseIndex])
         );
-        isReuseDataCopy.isReceipt = true;
-        tableData.value.splice(isReuseIndex + 1, 0, isReuseDataCopy);
+        reuseData.isReceipt = true;
+        tableData.value.splice(isReuseIndex + 1, 0, reuseData);
       }
       console.log('tableData', tableData.value);
       // if (isBeforehand.value) {
@@ -436,10 +328,11 @@ function submitForm() {
   ruleFormRef.value.validate((valid: any) => {
     if (valid) {
       const hasQuantityIssuedNull = tableData.value.find(
-        (item: { quantityMrp: number | null | undefined }) =>
-          item.quantityMrp === 0 ||
-          item.quantityMrp === null ||
-          item.quantityMrp === undefined
+        (item: any) =>
+          !item.isReceipt &&
+          (item.quantityMrp === 0 ||
+            item.quantityMrp === null ||
+            item.quantityMrp === undefined)
       );
       if (hasQuantityIssuedNull) {
         ElMessage.warning('存在领料数量为空的数据');
@@ -798,4 +691,3 @@ function submitForm() {
   text-align: right !important;
 }
 </style>
-~/api
