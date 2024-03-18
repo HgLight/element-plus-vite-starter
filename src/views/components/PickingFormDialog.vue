@@ -329,6 +329,8 @@ function submitForm() {
     if (valid) {
       const hasQuantityIssuedNull = tableData.value.find(
         (item: any) =>
+          item.materialName.indexOf('再生') == -1 &&
+          item.materialCode.indexOf('再生') == -1 &&
           !item.isReceipt &&
           (item.quantityMrp === 0 ||
             item.quantityMrp === null ||
