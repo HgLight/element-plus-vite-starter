@@ -1,4 +1,24 @@
 [{
+  "version": "1.0.3",
+  "title": "检测到新版本",
+  "pollingTime": 10000,
+  "publisher": "许银灯",
+  "publishTime": "2024/03/18 09:49:00",
+  "buttonText": "立即更新",
+  "primaryColor": "#758bfd",
+  "rocketColor": "#ff8600",
+  "imageUrl": "https://avatars.githubusercontent.com/u/26329117",
+  "description": [
+    {
+      "index": 1,
+      "value": "更新版本至1.0.3"
+    },
+    {
+      "index": 2,
+      "value": "领料时，BOM明细如果是回料的，再生料，领料数量可以为0，批次号可以不选"
+    }
+  ]
+},{
   "version": "1.0.2",
   "title": "检测到新版本",
   "pollingTime": 10000,
