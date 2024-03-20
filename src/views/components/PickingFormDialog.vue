@@ -342,8 +342,10 @@ function submitForm() {
       }
 
       const hasBatchCodeNull = tableData.value.find(
-        (item: { batchCodeStr: string | null }) =>
-          item.batchCodeStr === '' || item.batchCodeStr === null
+        (item: any) =>
+        item.materialName.indexOf('再生') == -1 &&
+          item.materialCode.indexOf('再生') == -1 &&
+          !item.isReceipt &&(item.batchCodeStr === '' || item.batchCodeStr === null)
       );
       if (hasBatchCodeNull) {
         ElMessage.warning('存在批次号未选的物料，请选择');
