@@ -12,6 +12,7 @@
     "lint:prettier": "prettier --write  \"{src/**/*,build/**/*}.{js,ts,json,tsx,css,scss,vue,html,md}\""
   },
   "dependencies": {
+    "@pureadmin/utils": "^2.4.7",
     "axios": "^1.6.7",
     "element-plus": "^2.5.6",
     "nprogress": "^0.2.0",
