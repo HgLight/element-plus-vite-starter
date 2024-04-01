@@ -544,14 +544,17 @@ function resetForm() {
     <template #footer>
       <div class="dialog-footer">
         <el-button @click="dialogVisible = false"> 取 消 </el-button>
-        <el-button 
+        <el-button
           v-optimize="{
             event: 'click',
             fn: submitForm,
             immediate: true,
-            timeout: 1000
+            timeout: 1000,
           }"
-         type="primary"> 确 定 </el-button>
+          type="primary"
+        >
+          确 定
+        </el-button>
       </div>
     </template>
   </el-dialog>

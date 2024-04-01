@@ -343,9 +343,10 @@ function submitForm() {
 
       const hasBatchCodeNull = tableData.value.find(
         (item: any) =>
-        item.materialName.indexOf('再生') == -1 &&
+          item.materialName.indexOf('再生') == -1 &&
           item.materialCode.indexOf('再生') == -1 &&
-          !item.isReceipt &&(item.batchCodeStr === '' || item.batchCodeStr === null)
+          !item.isReceipt &&
+          (item.batchCodeStr === '' || item.batchCodeStr === null)
       );
       if (hasBatchCodeNull) {
         ElMessage.warning('存在批次号未选的物料，请选择');
@@ -674,7 +675,17 @@ function submitForm() {
         </p>
         <div>
           <el-button @click="dialogVisible = false"> 取 消 </el-button>
-          <el-button type="primary" @click="submitForm"> 确 定 </el-button>
+          <el-button
+            v-optimize="{
+              event: 'click',
+              fn: submitForm,
+              immediate: true,
+              timeout: 1000,
+            }"
+            type="primary"
+          >
+            确 定
+          </el-button>
         </div>
       </div>
     </template>

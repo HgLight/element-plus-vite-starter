@@ -55,10 +55,15 @@ if (import.meta.env.MODE == 'development') {
         <el-input v-model.trim="QRcodeVal" clearable @change="handleChange">
           <template #append>
             <el-button
+              v-optimize="{
+                event: 'click',
+                fn: handleChange,
+                immediate: true,
+                timeout: 1000,
+              }"
               type="primary"
               :disabled="!QRcodeVal"
               :loading="requesting"
-              @click="handleChange"
             >
               确认
             </el-button>

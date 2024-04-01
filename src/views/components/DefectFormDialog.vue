@@ -155,9 +155,18 @@ function handleClose() {
     <template #footer>
       <div class="dialog-footer">
         <el-button @click="dialogVisible = false"> 取 消 </el-button>
-        <el-button type="primary" @click="submitForm"> 确 定 </el-button>
+        <el-button
+          v-optimize="{
+            event: 'click',
+            fn: submitForm,
+            immediate: true,
+            timeout: 1000,
+          }"
+          type="primary"
+        >
+          确 定
+        </el-button>
       </div>
     </template>
   </el-dialog>
 </template>
-
