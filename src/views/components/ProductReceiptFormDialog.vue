@@ -261,7 +261,7 @@ function handleChange(
     row.whsLocationName = '';
   }
 }
-function submitForm(this: any) {
+function submitForm() {
   ruleFormRef.value.validate((valid: any) => {
     if (valid) {
       // let ishave0 = false
@@ -290,7 +290,7 @@ function submitForm(this: any) {
     }
   });
 }
-function resetForm(this: any) {
+function resetForm() {
   ruleFormRef.value.resetFields();
   formData.value.productReceiptRows = [];
 }
@@ -544,7 +544,14 @@ function resetForm(this: any) {
     <template #footer>
       <div class="dialog-footer">
         <el-button @click="dialogVisible = false"> 取 消 </el-button>
-        <el-button type="primary" @click="submitForm"> 确 定 </el-button>
+        <el-button 
+          v-optimize="{
+            event: 'click',
+            fn: submitForm,
+            immediate: true,
+            timeout: 1000
+          }"
+         type="primary"> 确 定 </el-button>
       </div>
     </template>
   </el-dialog>
