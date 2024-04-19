@@ -37,7 +37,7 @@ function handleChange() {
 }
 
 if (import.meta.env.MODE == 'development') {
-  QRcodeVal.value = 'HL240320002';
+  QRcodeVal.value = 'MY240318001';
 }
 </script>
 

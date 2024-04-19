@@ -324,6 +324,11 @@ function handleBatchCodeSelectChange(
     // }
   }
 }
+
+function handleDelete( row:any, index:number ){
+  tableData.value.splice(index,1)
+}
+
 function submitForm() {
   ruleFormRef.value.validate((valid: any) => {
     if (valid) {
@@ -423,7 +428,7 @@ function submitForm() {
     v-model="dialogVisible"
     :modal="false"
     append-to-body
-    width="1321px"
+    width="1351px"
   >
     <el-form
       ref="ruleFormRef"
@@ -660,6 +665,17 @@ function submitForm() {
                   placeholder="点击开始扫码"
                   @change="handleBatchCodeScanChange($event, row)"
                 />
+              </template>
+            </el-table-column>
+            <el-table-column
+              label="操作"
+              align="center"
+              min-width="80"
+              show-overflow-tooltip
+            >
+              <template #default="{ row,$index }">
+                <el-button type="danger" link  @click="handleDelete(row,$index)">删除</el-button>
+                
               </template>
             </el-table-column>
           </el-table>
