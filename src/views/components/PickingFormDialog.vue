@@ -428,7 +428,7 @@ function submitForm() {
     v-model="dialogVisible"
     :modal="false"
     append-to-body
-    width="1351px"
+    width="1350px"
   >
     <el-form
       ref="ruleFormRef"
@@ -437,7 +437,7 @@ function submitForm() {
       label-width="110px"
     >
       <el-row :gutter="40">
-        <el-col :span="8" :offset="0">
+        <el-col :span="6" :offset="0">
           <el-form-item label="生产领料编码" prop="issueCode">
             <el-input
               v-model.trim="formData.issueCode"
@@ -445,7 +445,7 @@ function submitForm() {
             />
           </el-form-item>
         </el-col>
-        <el-col :span="8" :offset="0">
+        <el-col :span="6" :offset="0">
           <el-form-item label="生产领料名称" prop="issueName">
             <el-input
               v-model.trim="formData.issueName"
@@ -453,7 +453,7 @@ function submitForm() {
             />
           </el-form-item>
         </el-col>
-        <el-col v-if="false" :span="8" :offset="0">
+        <el-col v-if="false" :span="6" :offset="0">
           <el-form-item label="工作站" prop="workstationId">
             <el-select
               v-model="formData.workstationId"
@@ -470,7 +470,7 @@ function submitForm() {
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="8" :offset="0">
+        <el-col :span="6" :offset="0">
           <el-form-item label="工单编码" prop="workOrderCode">
             <el-input
               v-model="formData.workOrderCode"
@@ -479,7 +479,7 @@ function submitForm() {
             />
           </el-form-item>
         </el-col>
-        <el-col :span="8" :offset="0">
+        <el-col :span="6" :offset="0">
           <el-form-item label="生产数量">
             <el-input v-model="formData.quantityProduct" type="number" disabled>
               <template #suffix>
@@ -488,12 +488,12 @@ function submitForm() {
             </el-input>
           </el-form-item>
         </el-col>
-        <el-col v-if="false" :span="8" :offset="0">
+        <el-col v-if="false" :span="6" :offset="0">
           <el-form-item label="客户">
             <el-input v-model.trim="formData.clientName" readonly />
           </el-form-item>
         </el-col>
-        <el-col :span="8" :offset="0">
+        <el-col :span="6" :offset="0">
           <el-form-item label="领料日期" prop="issueDate">
             <el-date-picker
               v-model="formData.issueDate"
@@ -507,12 +507,12 @@ function submitForm() {
             />
           </el-form-item>
         </el-col>
-        <el-col :span="24" :offset="0">
+        <el-col :span="18" :offset="0">
           <el-form-item label="备注" prop="remarks">
             <el-input
               v-model.trim="formData.remarks"
               type="textarea"
-              :rows="2"
+              :rows="1"
               placeholder="备注"
             />
           </el-form-item>
@@ -520,7 +520,7 @@ function submitForm() {
         <el-col :span="24" :offset="0">
           <el-table
             border
-            :height="240"
+            :height="380"
             highlight-current-row
             :data="tableData"
           >
@@ -558,7 +558,7 @@ function submitForm() {
               label="计量单位"
               align="center"
               prop="unitOfMeasure"
-              width="100"
+              width="90"
               show-overflow-tooltip
             />
             <el-table-column
@@ -573,7 +573,7 @@ function submitForm() {
             <el-table-column
               label="领料数量"
               align="center"
-              width="100"
+              width="90"
               show-overflow-tooltip
             >
               <template #default="{ row }">
@@ -590,21 +590,33 @@ function submitForm() {
               </template>
             </el-table-column>
             <el-table-column
-              v-if="false"
+            v-if="false"
               label="是否有回料"
               align="center"
               prop="isReuse"
-              width="100"
+              width="90"
             >
               <template #default="{ row }">
                 {{ row.isReuse ? '是' : '否' }}
               </template>
             </el-table-column>
             <el-table-column
+              label="回料标识"
+              align="center"
+              prop="isReuse"
+              width="90"
+            >
+              <template #default="{ row }">
+                <el-tag :type="row.isReceipt ? 'success' : 'info' ">
+                  {{ row.isReceipt ? '是' : '否' }}
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column
               label="批次编号"
               align="center"
               prop="batchCodeArray"
-              min-width="320"
+              min-width="290"
               show-overflow-tooltip
             >
               <template #header>
@@ -655,14 +667,14 @@ function submitForm() {
               label="扫码"
               align="center"
               prop="batchCodeScanStr"
-              min-width="180"
+              min-width="160"
               show-overflow-tooltip
             >
               <template #default="{ row }">
                 <el-input
                   v-model="row.batchCodeScanStr"
                   clearable
-                  placeholder="点击开始扫码"
+                  placeholder="先点后扫"
                   @change="handleBatchCodeScanChange($event, row)"
                 />
               </template>
@@ -670,7 +682,7 @@ function submitForm() {
             <el-table-column
               label="操作"
               align="center"
-              min-width="80"
+              width="60"
               show-overflow-tooltip
             >
               <template #default="{ row,$index }">
