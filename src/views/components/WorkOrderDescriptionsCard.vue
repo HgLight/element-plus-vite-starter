@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 import { getIssueRowListByWorkOrderId } from "~/api"
 import { useAppStoreHook } from '~/store/modules/app';
@@ -9,8 +9,12 @@ const emits = defineEmits(['beforehand']);
 
 const { bomTableData, erweimaData } = storeToRefs(useAppStoreHook());
 
-const isBeforehand = ref<boolean>(false);
 const pickingTableData=ref([])
+const isBeforehand = ref<boolean>(false);
+
+watch(erweimaData,()=>{
+  onSearch();
+})
 
 function handleBeforehand() {
   isBeforehand.value = !isBeforehand.value;
