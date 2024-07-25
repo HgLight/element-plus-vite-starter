@@ -269,6 +269,17 @@ export function getMouldList(params: object) {
   );
 }
 
+// 领料明细
+export function getIssueRowListByWorkOrderId(params: object) {
+  return http.request<any>(
+    'get',
+    getBaseUrl('DOMAIN_BUS') + '/api/IssueRow/GetListByWorkOrderId' ,
+    {
+      params,
+    }
+  );
+}
+
 // 操作人
 export function getOperatorList(params: object) {
   return http.request<any>(
