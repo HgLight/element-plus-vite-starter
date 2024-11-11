@@ -584,69 +584,29 @@ onMounted(() => {
         </ReColForm>
         <ReColForm>
           <el-form-item label="设备" prop="machineryId">
-            <el-input
-              v-if="false"
-              v-model="erweimaData.machineryName"
-              :disabled="true"
-              title=""
-            />
-            <template v-else>
-              <el-select
-                v-if="formData.status === 1 || formData.status === 4"
-                v-model="formData.machineryId"
-                placeholder="请选择"
-                filterable
-                :allow-create="false"
-                style="width: 100%"
-                :disabled="formData.status === 1 || formData.status === 4"
-                :title="
-                  formData.status === 1
-                    ? '未开始不可编辑'
-                    : formData.status === 4
-                      ? '已完成不可编辑'
-                      : ''
-                "
-                @change="handleMachineryChange"
-              >
-                <el-option
-                  v-for="machinery in machineryList"
-                  :key="machinery.id"
-                  :label="machinery.name"
-                  :value="machinery.value"
-                />
-              </el-select>
-              <el-tooltip
-                v-else
-                class="item"
-                effect="dark"
-                content="请扫设备编码"
-                placement="top"
-              >
-                <el-select
-                  v-model="formData.machineryId"
-                  placeholder="请选择"
-                  filterable
-                  :allow-create="false"
-                  style="width: 100%"
-                  :disabled="formData.status === 1 || formData.status === 4"
-                  :title="
-                    formData.status === 1
-                      ? '未开始不可编辑'
-                      : formData.status === 4
-                        ? '已完成不可编辑'
-                        : ''
-                  "
-                  @change="handleMachineryChange"
-                >
-                  <el-option
-                    v-for="machinery in machineryList"
-                    :key="machinery.id"
-                    :label="machinery.name"
-                    :value="machinery.value"
-                  />
-                </el-select>
-              </el-tooltip>
-            </template>
+            <el-select
+              v-model="formData.machineryId"
+              placeholder="请选择"
+              filterable
+              :allow-create="false"
+              style="width: 100%"
+              :disabled="formData.status === 1 || formData.status === 4"
+              :title="
+                formData.status === 1
+                  ? '未开始不可编辑'
+                  : formData.status === 4
+                    ? '已完成不可编辑'
+                    : ''
+              "
+              @change="handleMachineryChange"
+            >
+              <el-option
+                v-for="machinery in machineryList"
+                :key="machinery.id"
+                :label="machinery.name"
+                :value="machinery.value"
+              />
+            </el-select>
           </el-form-item>
         </ReColForm>
         <ReColForm
