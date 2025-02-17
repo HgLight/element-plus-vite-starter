@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-const QRcodeVal = defineModel("modelValue", { type: String, default: "" })
+const QRcodeVal = defineModel({ type: String, default: "" })
 const requesting = defineModel("requesting", { type: Boolean, default: false })
 const dialogVisible = defineModel("dialogVisible", { type: Boolean, default: false })
 
@@ -16,10 +16,6 @@ function handleChange() {
   if (!requesting.value) {
     emits('sure');
   }
-}
-
-if (import.meta.env.MODE == 'development') {
-  QRcodeVal.value = 'MY240318001';
 }
 </script>
 

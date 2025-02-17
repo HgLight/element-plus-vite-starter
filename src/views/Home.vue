@@ -25,7 +25,7 @@ const QRcodeVal = ref<string>('');
 const scanDialogVisible = ref(false);
 
 if (import.meta.env.MODE == 'development') {
-  QRcodeVal.value = 'MY240318001';
+  QRcodeVal.value = 'MY250217001';
 }
 
 function handleSure() {
@@ -59,7 +59,7 @@ function submit() {
         );
       } else {
         if(erweimaData.value != null &&
-        JSON.stringify(erweimaData.value) === '{}'){
+        JSON.stringify(erweimaData.value) !== '{}'){
           scanDialogVisible.value = false;
         }
       }
@@ -135,10 +135,12 @@ onMounted(() => {
 });
 
 const str = location.search.split('?');
-if (str.length > 0) {
+if (str.length > 1) {
   const search = queryString.parse(str[1]) as unknown as any;
-  workOrderCode.value = search.workOrderCode;
-  QRcodeVal.value = workOrderCode.value ? workOrderCode.value : '';
+  if(search){
+    workOrderCode.value = search.workOrderCode;
+    QRcodeVal.value = workOrderCode.value ? workOrderCode.value : '';
+  }
   console.log('QRcodeVal', QRcodeVal.value);
 }
 </script>
