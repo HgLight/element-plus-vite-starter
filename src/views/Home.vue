@@ -19,18 +19,23 @@ const { workOrderCode, erweimaData, workTaskFeedbacks, currentWorkTask } =
   storeToRefs(useAppStoreHook());
 
 const scanDialogRef = ref();
+const requesting = ref(false);
 const dialogVisible = ref(false);
 const QRcodeVal = ref<string>('');
+const scanDialogVisible = ref(false);
 
-function handleComplete(val: any) {
-  workOrderCode.value = val;
-  QRcodeVal.value = workOrderCode.value ? workOrderCode.value : '';
+if (import.meta.env.MODE == 'development') {
+  QRcodeVal.value = 'MY240318001';
+}
+
+function handleSure() {
+  workOrderCode.value = QRcodeVal.value;
   if (workOrderCode.value) {
     submit();
   }
 }
 function submit() {
-  workOrderCode.value = QRcodeVal.value;
+  requesting.value = true;
   loadWorkOrder()
     .then(() => {
       if (
@@ -52,16 +57,13 @@ function submit() {
             ? '该工单已关闭'
             : '该工单还未提交'
         );
-        scanDialogRef.value.close(0, QRcodeVal.value);
       } else {
-        scanDialogRef.value.close(
-          erweimaData.value == null ||
-            JSON.stringify(erweimaData.value) === '{}'
-            ? 0
-            : 1,
-          QRcodeVal.value
-        );
+        if(erweimaData.value != null &&
+        JSON.stringify(erweimaData.value) === '{}'){
+          scanDialogVisible.value = false;
+        }
       }
+      requesting.value = false;
     });
 }
 function startHome() {
@@ -128,7 +130,7 @@ onMounted(() => {
   if (workOrderCode.value) {
     submit();
   } else {
-    scanDialogRef.value.show();
+    scanDialogVisible.value = true;
   }
 });
 
@@ -147,6 +149,6 @@ if (str.length > 0) {
       v-if="dialogVisible && workTaskFeedbacks && currentWorkTask"
       @submit="submit"
     />
-    <ScanDialog ref="scanDialogRef" @complete="handleComplete" />
+    <ScanDialog ref="scanDialogRef" v-model="QRcodeVal" v-model:requesting="requesting" v-model:dialogVisible="scanDialogVisible" @sure="handleSure" />
   </div>
 </template>

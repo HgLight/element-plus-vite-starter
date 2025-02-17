@@ -156,6 +156,7 @@ export const useAppStore = defineStore({
           .catch(() => {
             this.erweimaData = null;
             this.bomTableData = [];
+            reject();
           });
       });
     },

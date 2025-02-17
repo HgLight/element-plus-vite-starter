@@ -1,39 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 
-const requesting = ref<boolean>(false);
-const dialogVisible = ref<boolean>(false);
-const QRcodeVal = ref<string>(''); // HL23070303 SC23063003 MY23070401 MY23070403 MY23070404 MY23070601 SC23071106 MY240221008
+const QRcodeVal = defineModel("modelValue", { type: String, default: "" })
+const requesting = defineModel("requesting", { type: Boolean, default: false })
+const dialogVisible = defineModel("dialogVisible", { type: Boolean, default: false })
 
 defineOptions({
   name: 'ScanDialog',
 });
-const emits = defineEmits(['complete']);
-
-function show() {
-  dialogVisible.value = true;
-}
-
-function close(code: number, _QRcodeVal: string) {
-  console.log('code', code);
-  requesting.value = false;
-  if (code !== 0) {
-    dialogVisible.value = false;
-  } else {
-    dialogVisible.value = true;
-    QRcodeVal.value = _QRcodeVal;
-  }
-}
-defineExpose({ show, close });
+const emits = defineEmits(['sure']);
 
 function handleChange() {
   if (!QRcodeVal.value) {
     return;
   }
   if (!requesting.value) {
-    emits('complete', QRcodeVal.value);
+    emits('sure');
   }
-  requesting.value = true;
 }
 
 if (import.meta.env.MODE == 'development') {
