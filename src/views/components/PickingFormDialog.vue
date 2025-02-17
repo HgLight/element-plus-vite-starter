@@ -191,7 +191,8 @@ function getDatas() {
               item.batchCodeScanStr = '';
               item.batchCodeArray = [];
               item.thresholdMax = sitem.thresholdMax;
-              item.quantityMrp = sitem.quantityMrp;
+              // item.quantityMrp = sitem.quantityMrp;
+              item.quantityMrp = 0;
               tableData.value.push(item);
             }
           }
