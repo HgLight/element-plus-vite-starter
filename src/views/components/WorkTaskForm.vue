@@ -539,6 +539,13 @@ onMounted(() => {
               >
                 入库
               </el-button>
+              <el-button
+                v-if="formData.receiptStatus == 3"
+                type="primary"
+                @click="handleReceipt()"
+              >
+              入库查看
+              </el-button>
             </div>
           </el-form-item>
         </ReCol24>

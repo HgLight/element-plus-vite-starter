@@ -298,7 +298,7 @@ function resetForm() {
 
 <template>
   <el-dialog
-    title="产品入库"
+    :title="currentTask.receiptStatus === 2?'产品入库':'产品入库查看'"
     v-model="dialogVisible"
     :modal="false"
     append-to-body
@@ -543,8 +543,9 @@ function resetForm() {
     </el-form>
     <template #footer>
       <div class="dialog-footer">
-        <el-button @click="dialogVisible = false"> 取 消 </el-button>
+        <el-button @click="dialogVisible = false"> {{currentTask.receiptStatus === 2?"取 消":"关闭"}} </el-button>
         <el-button
+          v-if="currentTask.receiptStatus === 2"
           v-optimize="{
             event: 'click',
             fn: submitForm,
