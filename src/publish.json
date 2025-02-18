@@ -1,4 +1,20 @@
 [ {
+  "version": "1.0.8",
+  "title": "检测到新版本",
+  "pollingTime": 10000,
+  "publisher": "许银灯",
+  "publishTime": "2025/02/18 09:37:00",
+  "buttonText": "立即更新",
+  "primaryColor": "#758bfd",
+  "rocketColor": "#ff8600",
+  "imageUrl": "https://avatars.githubusercontent.com/u/26329117",
+  "description": [
+    {
+      "index": 1,
+      "value": "更新版本至1.0.8"
+    }
+  ]
+},{
   "version": "1.0.7",
   "title": "检测到新版本",
   "pollingTime": 10000,
