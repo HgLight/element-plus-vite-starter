@@ -191,8 +191,7 @@ function getDatas() {
               item.batchCodeScanStr = '';
               item.batchCodeArray = [];
               item.thresholdMax = sitem.thresholdMax;
-              // item.quantityMrp = sitem.quantityMrp;
-              item.quantityMrp = 0;
+              item.quantityMrp = erweimaData.value.workOrderCode.indexOf("HL")!==-1||erweimaData.value.workOrderCode.indexOf("KL")!==-1?0:sitem.quantityMrp;// 粉末混炼加工卡和颗粒料加工卡默认为0
               tableData.value.push(item);
             }
           }
